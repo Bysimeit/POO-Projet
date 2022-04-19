@@ -4,7 +4,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class InterfaceConnexionWindows extends JFrame {
-    private InterfaceConnexionContent content;
+    private InterfaceConnexionButtons buttonsArea;
+    private InterfaceConnexionMain mainArea;
+    private InterfaceConnexionTitle titleArea;
+    private InterfaceConnexionPanel panel;
     private Container mainContent;
 
     public InterfaceConnexionWindows(){
@@ -19,13 +22,17 @@ public class InterfaceConnexionWindows extends JFrame {
             }
         });
 
-        content = new InterfaceConnexionContent();
-
+        //panel = new InterfaceConnexionPanel();
+        buttonsArea = new InterfaceConnexionButtons();
+        mainArea = new InterfaceConnexionMain();
+        titleArea = new InterfaceConnexionTitle();
 
         mainContent = this.getContentPane();
         mainContent.setLayout(new BorderLayout());
 
-        mainContent.add(content, BorderLayout.CENTER);
+        mainContent.add(mainArea, BorderLayout.CENTER);
+        mainContent.add(buttonsArea,BorderLayout.SOUTH);
+        mainContent.add(titleArea,BorderLayout.NORTH);
 
         setVisible(true);
     }
