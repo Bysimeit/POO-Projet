@@ -2,6 +2,8 @@ package UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RegisterPanel extends JPanel {
     private JLabel title, nameLabel, firstNameLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
@@ -205,6 +207,29 @@ public class RegisterPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 12;
         c.insets = new Insets(0, 0 ,20, 0);
+        //ButtonListener listener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
         add(registerButton, c);
     }
+
+    /*
+    private class ButtonListener implements ActionListener {
+        private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
+        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) {
+            this.nameText = nameText;
+            this.firstNameText = firstNameText;
+            this.birthdayText = birthdayText;
+            this.emailText = emailText;
+            this.passwordText = passwordText;
+            this.phoneText = phoneText;
+            this.GSMText = GSMText;
+            this.streetText = streetText;
+            this.postalCodeText = postalCodeText;
+            this.numberStreetText = numberStreetText;
+            this.signatureText = signatureText;
+        }
+        public void actionPerformed(ActionEvent event) {
+            // Envoyer vers la couche Controller puis, vers la couche Business pour traitement
+        }
+    }
+    */
 }
