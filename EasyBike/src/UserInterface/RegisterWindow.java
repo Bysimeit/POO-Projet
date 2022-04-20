@@ -1,4 +1,4 @@
-package View;
+package UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
