@@ -1,5 +1,9 @@
+import View.LoginWindows;
+import View.RegisterWindow;
+
 public class Main {
     public static void main(String[] args) {
-        InterfaceConnexionWindows firstWindows = new InterfaceConnexionWindows();
+        LoginWindows firstWindows = new LoginWindows();
+        RegisterWindow registerWindow = new RegisterWindow();
     }
 }
