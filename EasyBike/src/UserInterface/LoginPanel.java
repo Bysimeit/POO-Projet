@@ -27,8 +27,8 @@ public class LoginPanel extends JPanel {
         }
     }
 
-    public LoginPanel(JFrame window) {
-        this.loginWindow = window;
+    public LoginPanel(JFrame loginWindow) {
+        this.loginWindow = loginWindow;
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();

@@ -2,6 +2,8 @@ import UserInterface.LoginPanel;
 import Exception.JTextFieldException;
 import Exception.JTextFieldEmptyException;
 import UserInterface.LoginWindow;
+import UserInterface.RegisterPanel;
+import UserInterface.RegisterWindow;
 
 public class Main {
     public static void main(String[] args) throws JTextFieldException, JTextFieldEmptyException {
