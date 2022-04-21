@@ -9,11 +9,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RegisterWindow extends JFrame {
-    private RegisterPanel panel = new RegisterPanel(this);
+    private RegisterPanel panel;
 
-    public RegisterWindow() throws JTextFieldException, JTextFieldEmptyException {
+    public RegisterWindow(JFrame loginWindow) throws JTextFieldException, JTextFieldEmptyException {
         super("Inscription");
-        setBounds(50,50,350,800);
+        setBounds(100,100,350,800);
 
         //fermeture avec l'icone X
         addWindowListener(new WindowAdapter() {
@@ -22,6 +22,8 @@ public class RegisterWindow extends JFrame {
                 System.exit(0);
             }
         });
+
+        panel = new RegisterPanel(this, loginWindow);
 
         add(panel);
         setVisible(true);

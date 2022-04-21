@@ -19,7 +19,7 @@ public class LoginPanel extends JPanel {
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             try {
-                RegisterWindow registerWindow = new RegisterWindow();
+                RegisterWindow registerWindow = new RegisterWindow(loginWindow);
                 loginWindow.setVisible(false);
             } catch (JTextFieldException | JTextFieldEmptyException e) {
                 throw new RuntimeException(e);

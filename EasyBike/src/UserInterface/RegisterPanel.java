@@ -17,15 +17,16 @@ public class RegisterPanel extends JPanel {
     private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
     private JButton backButton, registerButton;
 
-    private JFrame window;
+    private JFrame registerWindow;
+    private JFrame loginWindow;
 
-    public RegisterPanel(JFrame window) throws JTextFieldException, JTextFieldEmptyException {
-        this.window = window;
+    public RegisterPanel(JFrame registerWindow, JFrame loginWindow) throws JTextFieldException, JTextFieldEmptyException {
+        this.registerWindow = registerWindow;
+        this.loginWindow = loginWindow;
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
-
 
         //title
         title = new JLabel("Bienvenue chez EasyBike");
@@ -212,6 +213,8 @@ public class RegisterPanel extends JPanel {
         c.gridx = 0;
         c.gridy = 12;
         c.insets = new Insets(0, 35 ,20, 0);
+        BackListener backListener = new BackListener();
+        backButton.addActionListener(backListener);
         add(backButton, c);
 
         registerButton = new JButton("Inscription");
@@ -221,6 +224,13 @@ public class RegisterPanel extends JPanel {
         ButtonListener registerListener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
         registerButton.addActionListener(registerListener);
         add(registerButton, c);
+    }
+
+    private class BackListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            registerWindow.setVisible(false);
+            loginWindow.setVisible(true);
+        }
     }
 
     // Action click on Register Button
