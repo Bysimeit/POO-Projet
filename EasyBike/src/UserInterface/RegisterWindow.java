@@ -1,5 +1,7 @@
 package UserInterface;
 
+import Exception.JTextFieldException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -9,7 +11,7 @@ public class RegisterWindow extends JFrame {
     private RegisterPanel panel;
     private Container mainContent;
 
-    public RegisterWindow(){
+    public RegisterWindow() throws JTextFieldException {
         super("Inscription");
         setBounds(50,50,350,800);
 

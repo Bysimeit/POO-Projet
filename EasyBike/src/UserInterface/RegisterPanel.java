@@ -1,19 +1,22 @@
 package UserInterface;
 
 import Controller.ApplicationController;
+import Exception.JTextFieldException;
+import Model.Register;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RegisterPanel extends JPanel {
     private JLabel title, nameLabel, firstNameLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
     private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
     private JButton backButton, registerButton;
 
-    public RegisterPanel(){
+    public RegisterPanel() throws JTextFieldException {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -210,28 +213,53 @@ public class RegisterPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 12;
         c.insets = new Insets(0, 0 ,20, 0);
-        //ButtonListener listener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
+        ButtonListener listener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
+        registerButton.addActionListener(listener);
         add(registerButton, c);
     }
 
     private class ButtonListener implements ActionListener {
         private ApplicationController controller;
-        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) {
-            ArrayList<JTextField> registerInfos = new ArrayList<JTextField>();
-            registerInfos.add(nameText);
-            registerInfos.add(firstNameText);
-            registerInfos.add(birthdayText);
-            registerInfos.add(emailText);
-            registerInfos.add(passwordText);
-            registerInfos.add(phoneText);
-            registerInfos.add(GSMText);
-            registerInfos.add(streetText);
-            registerInfos.add(postalCodeText);
-            registerInfos.add(numberStreetText);
-            registerInfos.add(signatureText);
+        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) throws JTextFieldException {
+
         }
         public void actionPerformed(ActionEvent event) {
-            // Envoyer vers la couche Controller puis, vers la couche Business pour traitement
+            ArrayList<Register> registerInfos = new ArrayList<Register>();
+            try {
+                if (!Objects.equals(nameText.getText(), "")) {
+                    Register jNameText = new Register(nameText);
+                    registerInfos.add(jNameText);
+                } else {
+                    nameText.setText("NOM À REMPLIR");
+                    throw new JTextFieldException(nameText);
+                }
+
+                Register jFirstNameText = new Register(firstNameText);
+                Register jBirthdayText = new Register(birthdayText);
+                Register jEmailText = new Register(emailText);
+                Register jPasswordText = new Register(passwordText);
+                Register jPhoneText = new Register(phoneText);
+                Register jGSMText = new Register(GSMText);
+                Register jStreetText = new Register(streetText);
+                Register jPostalCodeText = new Register(postalCodeText);
+                Register jNumberStreetText = new Register(numberStreetText);
+                Register jsignatureText = new Register(signatureText);
+
+                registerInfos.add(jFirstNameText);
+                registerInfos.add(jBirthdayText);
+                registerInfos.add(jEmailText);
+                registerInfos.add(jPasswordText);
+                registerInfos.add(jPhoneText);
+                registerInfos.add(jGSMText);
+                registerInfos.add(jStreetText);
+                registerInfos.add(jPostalCodeText);
+                registerInfos.add(jNumberStreetText);
+                registerInfos.add(jsignatureText);
+
+                System.out.println(jFirstNameText.getJTextField().getText());
+            } catch (JTextFieldException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
