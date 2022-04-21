@@ -2,6 +2,7 @@ package UserInterface;
 
 import Controller.ApplicationController;
 import Exception.JTextFieldException;
+import Exception.JTextFieldEmptyException;
 import Model.Register;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class RegisterPanel extends JPanel {
     private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
     private JButton backButton, registerButton;
 
-    public RegisterPanel() throws JTextFieldException {
+    public RegisterPanel() throws JTextFieldException, JTextFieldEmptyException {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -209,15 +210,16 @@ public class RegisterPanel extends JPanel {
         c.insets = new Insets(0, 35 ,20, 0);
         add(backButton, c);
 
-        registerButton = new JButton("Inscritpion");
+        registerButton = new JButton("Inscription");
         c.gridx = 1;
         c.gridy = 12;
         c.insets = new Insets(0, 0 ,20, 0);
-        ButtonListener listener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
-        registerButton.addActionListener(listener);
+        ButtonListener registerListener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
+        registerButton.addActionListener(registerListener);
         add(registerButton, c);
     }
 
+    // Action click on Register Button
     private class ButtonListener implements ActionListener {
         private ApplicationController controller;
         public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) throws JTextFieldException {
@@ -230,8 +232,7 @@ public class RegisterPanel extends JPanel {
                     Register jNameText = new Register(nameText);
                     registerInfos.add(jNameText);
                 } else {
-                    nameText.setText("NOM À REMPLIR");
-                    throw new JTextFieldException(nameText);
+                    throw new JTextFieldEmptyException("Nom");
                 }
 
                 Register jFirstNameText = new Register(firstNameText);
@@ -258,6 +259,8 @@ public class RegisterPanel extends JPanel {
 
                 System.out.println(jFirstNameText.getJTextField().getText());
             } catch (JTextFieldException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            } catch (JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }

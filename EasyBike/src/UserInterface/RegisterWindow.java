@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Exception.JTextFieldException;
+import Exception.JTextFieldEmptyException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class RegisterWindow extends JFrame {
     private RegisterPanel panel;
     private Container mainContent;
 
-    public RegisterWindow() throws JTextFieldException {
+    public RegisterWindow() throws JTextFieldException, JTextFieldEmptyException {
         super("Inscription");
         setBounds(50,50,350,800);
 
