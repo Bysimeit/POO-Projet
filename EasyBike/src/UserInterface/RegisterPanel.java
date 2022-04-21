@@ -20,7 +20,7 @@ public class RegisterPanel extends JPanel {
     private JFrame registerWindow;
     private JFrame loginWindow;
 
-    public RegisterPanel(JFrame registerWindow, JFrame loginWindow) throws JTextFieldException, JTextFieldEmptyException {
+    public RegisterPanel(JFrame registerWindow, JFrame loginWindow) throws JTextFieldException {
         this.registerWindow = registerWindow;
         this.loginWindow = loginWindow;
 
@@ -226,6 +226,7 @@ public class RegisterPanel extends JPanel {
         add(registerButton, c);
     }
 
+    // Action click on Back Button
     private class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             registerWindow.setVisible(false);
@@ -281,14 +282,18 @@ public class RegisterPanel extends JPanel {
                     Register jPhoneText = new Register(phoneText);
                     registerInfos.add(jPhoneText);
                 } else {
-                    throw new JTextFieldEmptyException("Numéro de téléphone");
+                    phoneText.setText("null");
+                    Register jPhoneText = new Register(phoneText);
+                    registerInfos.add(jPhoneText);
                 }
 
                 if (!Objects.equals(GSMText.getText(), "")) {
                     Register jGSMText = new Register(GSMText);
                     registerInfos.add(jGSMText);
                 } else {
-                    throw new JTextFieldEmptyException("Numéro de GSM");
+                    GSMText.setText("null");
+                    Register jGSMText = new Register(GSMText);
+                    registerInfos.add(jGSMText);
                 }
 
                 if (!Objects.equals(streetText.getText(), "")) {
@@ -313,10 +318,12 @@ public class RegisterPanel extends JPanel {
                 }
 
                 if (!Objects.equals(signatureText.getText(), "")) {
-                    Register jsignatureText = new Register(signatureText);
-                    registerInfos.add(jsignatureText);
+                    Register jSignatureText = new Register(signatureText);
+                    registerInfos.add(jSignatureText);
                 } else {
-                    throw new JTextFieldEmptyException("Signature");
+                    signatureText.setText("null");
+                    Register jSignatureText = new Register(signatureText);
+                    registerInfos.add(jSignatureText);
                 }
 
             } catch (JTextFieldException e) {

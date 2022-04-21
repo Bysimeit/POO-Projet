@@ -5,7 +5,7 @@ import Exception.JTextFieldException;
 import javax.swing.*;
 
 public class Register {
-    private JTextField jTextField;
+    private String textField;
 
     public Register(JTextField jTextField) throws JTextFieldException {
         setTextField(jTextField);
@@ -15,11 +15,11 @@ public class Register {
         if (jTextField == null) {
             throw new JTextFieldException(null);
         } else {
-            this.jTextField = jTextField;
+            this.textField = jTextField.getText();
         }
     }
 
-    public JTextField getJTextField() {
-        return jTextField;
+    public String getTextField() {
+        return textField;
     }
 }
