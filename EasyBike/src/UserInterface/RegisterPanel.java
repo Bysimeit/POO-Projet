@@ -235,29 +235,76 @@ public class RegisterPanel extends JPanel {
                     throw new JTextFieldEmptyException("Nom");
                 }
 
-                Register jFirstNameText = new Register(firstNameText);
-                Register jBirthdayText = new Register(birthdayText);
-                Register jEmailText = new Register(emailText);
-                Register jPasswordText = new Register(passwordText);
-                Register jPhoneText = new Register(phoneText);
-                Register jGSMText = new Register(GSMText);
-                Register jStreetText = new Register(streetText);
-                Register jPostalCodeText = new Register(postalCodeText);
-                Register jNumberStreetText = new Register(numberStreetText);
-                Register jsignatureText = new Register(signatureText);
+                if (!Objects.equals(firstNameText.getText(), "")) {
+                    Register jFirstNameText = new Register(firstNameText);
+                    registerInfos.add(jFirstNameText);
+                } else {
+                    throw new JTextFieldEmptyException("Prénom");
+                }
 
-                registerInfos.add(jFirstNameText);
-                registerInfos.add(jBirthdayText);
-                registerInfos.add(jEmailText);
-                registerInfos.add(jPasswordText);
-                registerInfos.add(jPhoneText);
-                registerInfos.add(jGSMText);
-                registerInfos.add(jStreetText);
-                registerInfos.add(jPostalCodeText);
-                registerInfos.add(jNumberStreetText);
-                registerInfos.add(jsignatureText);
+                if (!Objects.equals(birthdayText.getText(), "")) {
+                    Register jBirthdayText = new Register(birthdayText);
+                    registerInfos.add(jBirthdayText);
+                } else {
+                    throw new JTextFieldEmptyException("Date de naissance");
+                }
 
-                System.out.println(jFirstNameText.getJTextField().getText());
+                if (!Objects.equals(emailText.getText(), "")) {
+                    Register jEmailText = new Register(emailText);
+                    registerInfos.add(jEmailText);
+                } else {
+                    throw new JTextFieldEmptyException("Email");
+                }
+
+                if (!Objects.equals(passwordText.getText(), "")) {
+                    Register jPasswordText = new Register(passwordText);
+                    registerInfos.add(jPasswordText);
+                } else {
+                    throw new JTextFieldEmptyException("Mot de passe");
+                }
+
+                if (!Objects.equals(phoneText.getText(), "")) {
+                    Register jPhoneText = new Register(phoneText);
+                    registerInfos.add(jPhoneText);
+                } else {
+                    throw new JTextFieldEmptyException("Numéro de téléphone");
+                }
+
+                if (!Objects.equals(GSMText.getText(), "")) {
+                    Register jGSMText = new Register(GSMText);
+                    registerInfos.add(jGSMText);
+                } else {
+                    throw new JTextFieldEmptyException("Numéro de GSM");
+                }
+
+                if (!Objects.equals(streetText.getText(), "")) {
+                    Register jStreetText = new Register(streetText);
+                    registerInfos.add(jStreetText);
+                } else {
+                    throw new JTextFieldEmptyException("Nom de rue");
+                }
+
+                if (!Objects.equals(numberStreetText.getText(), "")) {
+                    Register jNumberStreetText = new Register(numberStreetText);
+                    registerInfos.add(jNumberStreetText);
+                } else {
+                    throw new JTextFieldEmptyException("Numéro de rue");
+                }
+
+                if (!Objects.equals(postalCodeText.getText(), "")) {
+                    Register jPostalCodeText = new Register(postalCodeText);
+                    registerInfos.add(jPostalCodeText);
+                } else {
+                    throw new JTextFieldEmptyException("Code postal");
+                }
+
+                if (!Objects.equals(signatureText.getText(), "")) {
+                    Register jsignatureText = new Register(signatureText);
+                    registerInfos.add(jsignatureText);
+                } else {
+                    throw new JTextFieldEmptyException("Signature");
+                }
+
             } catch (JTextFieldException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             } catch (JTextFieldEmptyException e) {
