@@ -15,7 +15,7 @@ public class LoginPanel extends JPanel {
 
     //click on register button
     //ATTENTION LA FENETRE CONNEXION NE SE FERME PAS. DEMANDER PROF !!!
-    private class ButtonListener extends LoginWindows implements ActionListener {
+    private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             try {
                 RegisterWindow registerWindow = new RegisterWindow();
