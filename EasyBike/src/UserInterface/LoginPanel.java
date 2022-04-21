@@ -1,14 +1,31 @@
 package UserInterface;
 
+import Exception.JTextFieldException;
+import com.mysql.cj.log.Log;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
     private JButton loginButton, registerButton;
     private JLabel title, emailLabel, passwordLabel;
     private JTextField emailText, passwordText;
 
-    public LoginPanel(){
+    //click on register button
+    //ATTENTION LA FENETRE CONNEXION NE SE FERME PAS. DEMANDER PROF !!!
+    /*private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            try {
+                RegisterWindow registerWindow = new RegisterWindow();
+            } catch (JTextFieldException e) {
+                e.printStackTrace();
+            }
+        }
+    }*/
+
+    public LoginPanel() {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -66,11 +83,14 @@ public class LoginPanel extends JPanel {
         c.insets = new Insets(0, 35 ,20, 0);
         add(loginButton, c);
 
-        registerButton = new JButton("Inscritpion");
+        //ButtonListener listenerRegister = new ButtonListener();
+        registerButton = new JButton("Inscription");
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(0, 0 ,20, 0);
+        //registerButton.addActionListener(listenerRegister);
         add(registerButton, c);
+
 
     }
 }

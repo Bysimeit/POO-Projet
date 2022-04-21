@@ -6,8 +6,8 @@ import Exception.JTextFieldEmptyException;
 
 public class Main {
     public static void main(String[] args) throws JTextFieldException, JTextFieldEmptyException {
-        //LoginWindows firstWindows = new LoginWindows();
-        RegisterWindow registerWindow = new RegisterWindow();
+        LoginWindows firstWindows = new LoginWindows();
+
 
         //ConnectBD connection = new ConnectBD();
     }
