@@ -1,9 +1,12 @@
 package UserInterface;
 
+import Controller.ApplicationController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterPanel extends JPanel {
     private JLabel title, nameLabel, firstNameLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
@@ -211,25 +214,25 @@ public class RegisterPanel extends JPanel {
         add(registerButton, c);
     }
 
-    /*
     private class ButtonListener implements ActionListener {
-        private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
+        private ApplicationController controller;
         public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) {
-            this.nameText = nameText;
-            this.firstNameText = firstNameText;
-            this.birthdayText = birthdayText;
-            this.emailText = emailText;
-            this.passwordText = passwordText;
-            this.phoneText = phoneText;
-            this.GSMText = GSMText;
-            this.streetText = streetText;
-            this.postalCodeText = postalCodeText;
-            this.numberStreetText = numberStreetText;
-            this.signatureText = signatureText;
+            ArrayList<JTextField> registerInfos = new ArrayList<JTextField>();
+            registerInfos.add(nameText);
+            registerInfos.add(firstNameText);
+            registerInfos.add(birthdayText);
+            registerInfos.add(emailText);
+            registerInfos.add(passwordText);
+            registerInfos.add(phoneText);
+            registerInfos.add(GSMText);
+            registerInfos.add(streetText);
+            registerInfos.add(postalCodeText);
+            registerInfos.add(numberStreetText);
+            registerInfos.add(signatureText);
         }
         public void actionPerformed(ActionEvent event) {
             // Envoyer vers la couche Controller puis, vers la couche Business pour traitement
         }
     }
-    */
+
 }
