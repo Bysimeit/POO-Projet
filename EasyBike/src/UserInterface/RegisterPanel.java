@@ -16,9 +16,12 @@ public class RegisterPanel extends JPanel {
     private JLabel title, nameLabel, firstNameLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
     private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
     private JButton backButton, registerButton;
+
     private JFrame window;
 
-    public RegisterPanel() throws JTextFieldException, JTextFieldEmptyException {
+    public RegisterPanel(JFrame window) throws JTextFieldException, JTextFieldEmptyException {
+        this.window = window;
+
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -218,13 +221,6 @@ public class RegisterPanel extends JPanel {
         ButtonListener registerListener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
         registerButton.addActionListener(registerListener);
         add(registerButton, c);
-    }
-
-    // Action click on Back Button
-    private class BackRegister implements ActionListener{
-        public void actionPerformed(ActionEvent event) {
-            
-        }
     }
 
     // Action click on Register Button

@@ -1,19 +1,15 @@
 package UserInterface;
 
-import Exception.JTextFieldException;
-import Exception.JTextFieldEmptyException;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class RegisterWindow extends JFrame {
-    private RegisterPanel panel = new RegisterPanel(this);
+public class LoginWindow extends JFrame {
+    private LoginPanel loginPanel = new LoginPanel(this);
 
-    public RegisterWindow() throws JTextFieldException, JTextFieldEmptyException {
-        super("Inscription");
-        setBounds(50,50,350,800);
+    public LoginWindow() {
+        super("Connexion");
+        setBounds(100,100,350,350);
 
         //fermeture avec l'icone X
         addWindowListener(new WindowAdapter() {
@@ -23,7 +19,7 @@ public class RegisterWindow extends JFrame {
             }
         });
 
-        add(panel);
+        add(loginPanel);
         setVisible(true);
     }
 }

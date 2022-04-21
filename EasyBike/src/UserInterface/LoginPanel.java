@@ -13,20 +13,23 @@ public class LoginPanel extends JPanel {
     private JLabel title, emailLabel, passwordLabel;
     private JTextField emailText, passwordText;
 
+    private JFrame loginWindow;
+
     //click on register button
-    //ATTENTION LA FENETRE CONNEXION NE SE FERME PAS. DEMANDER PROF !!!
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             try {
                 RegisterWindow registerWindow = new RegisterWindow();
-                LoginPanel.super.setVisible(false);
+                loginWindow.setVisible(false);
             } catch (JTextFieldException | JTextFieldEmptyException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public LoginPanel() {
+    public LoginPanel(JFrame window) {
+        this.loginWindow = window;
+
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
