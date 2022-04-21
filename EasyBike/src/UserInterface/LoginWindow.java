@@ -5,7 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class LoginWindow extends JFrame {
-    private LoginPanel loginPanel = new LoginPanel(this);
+    private LoginPanel mainPanel = new LoginPanel(this);
 
     public LoginWindow() {
         super("Connexion");
@@ -19,7 +19,7 @@ public class LoginWindow extends JFrame {
             }
         });
 
-        add(loginPanel);
+        add(mainPanel);
         setVisible(true);
     }
 }

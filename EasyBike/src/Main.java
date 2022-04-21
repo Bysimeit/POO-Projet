@@ -5,7 +5,7 @@ import UserInterface.LoginWindow;
 
 public class Main {
     public static void main(String[] args) throws JTextFieldException, JTextFieldEmptyException {
-        LoginWindow firstWindows = new LoginWindow();
+        LoginWindow firstWindow = new LoginWindow();
 
         //ConnectBD connection = new ConnectBD();
     }
