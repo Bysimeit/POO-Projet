@@ -12,11 +12,13 @@ public class Main {
 
         //ConnectDB connection = new ConnectDB();
 
+        /*
         EmployeeDBAccess employeeDBAccess = new EmployeeDBAccess();
         ArrayList<String> tests = employeeDBAccess.getEmployeeEMail();
 
         for (String test : tests) {
             System.out.println(test);
         }
+        */
     }
 }
