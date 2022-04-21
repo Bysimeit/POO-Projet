@@ -28,7 +28,7 @@ public class RegisterPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
 
-        // titled
+        // title d
         title = new JLabel("Bienvenue chez EasyBike");
         title.setFont(new Font("Arial", Font.PLAIN, 25));
         c.anchor = GridBagConstraints.NORTH;
