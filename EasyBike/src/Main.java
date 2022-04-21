@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) throws JTextFieldException, JTextFieldEmptyException {
         LoginWindows firstWindows = new LoginWindows();
 
-
         //ConnectBD connection = new ConnectBD();
     }
 }

@@ -6,10 +6,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class LoginWindows extends JFrame {
-    private LoginPanel panel;
-    private Container mainContent;
+    private LoginPanel panel = new LoginPanel();
 
-    public LoginWindows(){
+    public LoginWindows() {
         super("Connexion");
         setBounds(100,100,350,350);
 
@@ -21,8 +20,7 @@ public class LoginWindows extends JFrame {
             }
         });
 
-        add(new LoginPanel());
+        add(panel);
         setVisible(true);
     }
-
 }

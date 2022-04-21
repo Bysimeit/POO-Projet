@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Exception.JTextFieldException;
-import com.mysql.cj.log.Log;
+import Exception.JTextFieldEmptyException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,15 +15,15 @@ public class LoginPanel extends JPanel {
 
     //click on register button
     //ATTENTION LA FENETRE CONNEXION NE SE FERME PAS. DEMANDER PROF !!!
-    /*private class ButtonListener implements ActionListener {
+    private class ButtonListener extends LoginWindows implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             try {
                 RegisterWindow registerWindow = new RegisterWindow();
-            } catch (JTextFieldException e) {
-                e.printStackTrace();
+            } catch (JTextFieldException | JTextFieldEmptyException e) {
+                throw new RuntimeException(e);
             }
         }
-    }*/
+    }
 
     public LoginPanel() {
         GridBagLayout layout = new GridBagLayout();
@@ -83,14 +83,12 @@ public class LoginPanel extends JPanel {
         c.insets = new Insets(0, 35 ,20, 0);
         add(loginButton, c);
 
-        //ButtonListener listenerRegister = new ButtonListener();
+        ButtonListener listenerRegister = new ButtonListener();
         registerButton = new JButton("Inscription");
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(0, 0 ,20, 0);
-        //registerButton.addActionListener(listenerRegister);
+        registerButton.addActionListener(listenerRegister);
         add(registerButton, c);
-
-
     }
 }
