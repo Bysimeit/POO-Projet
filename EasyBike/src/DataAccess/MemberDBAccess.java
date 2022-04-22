@@ -15,29 +15,36 @@ public class MemberDBAccess implements MemberDataAccess {
     public void setMemberRegister(String nameText, String firstNameText, String birthdayText, String nationalNumberText, String emailText, String passwordText, String phoneText, String GSMText, String streetText, String numberStreetText, String postalCodeText, String signatureText) {
         singletonConnection = SingletonConnection.getInstance();
 
+        streetText = streetText.replaceAll(" ", "_").toLowerCase();
+
         String searchLocality = "SELECT id FROM locality WHERE postalcode = " + postalCodeText;
         String insertAddress = "INSERT INTO address (locality, street, housenumber) VALUES (?, ?, ?)";
-        String searchIdLocation = "SELECT id address FROM address WHERE street = " + streetText + " AND housenumber = " + numberStreetText;
+        String searchIdLocation = "SELECT id FROM address WHERE street = \"" + streetText + "\"";
         String insertMember = "INSERT INTO member (nationalnumber, location, name, firstname, dateofbirth, email, password, titulariat, phone, gsm, signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(searchLocality);
             ResultSet data = preparedStatement.executeQuery();
+            data.next();
             int idLocality = data.getInt("id");
-            System.out.println(idLocality + " searched successfully !");
+            System.out.println("Id number : " + idLocality + " searched successfully !");
 
             preparedStatement = singletonConnection.prepareStatement(insertAddress);
             preparedStatement.setInt(1, idLocality);
             preparedStatement.setString(2, streetText);
             preparedStatement.setString(3, numberStreetText);
             int nbLinesChanged = preparedStatement.executeUpdate();
-            System.out.println(nbLinesChanged + " changed successfully !");
+            System.out.println(nbLinesChanged + " line changed successfully !");
 
             preparedStatement = singletonConnection.prepareStatement(searchIdLocation);
             data = preparedStatement.executeQuery();
+            data.next();
             int idAddress = data.getInt("id");
+            System.out.println("Id number : " + idAddress + " searched successfully");
 
             preparedStatement = singletonConnection.prepareStatement(insertMember);
-            preparedStatement.setInt(1, Integer.parseInt(nationalNumberText));
+            int nationalNumberInt = Integer.parseInt(nationalNumberText);
+            preparedStatement.setInt(1, nationalNumberInt);
             preparedStatement.setInt(2, idAddress);
             preparedStatement.setString(3, nameText);
             preparedStatement.setString(4, firstNameText);
