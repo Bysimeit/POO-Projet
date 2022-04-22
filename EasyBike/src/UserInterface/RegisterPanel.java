@@ -3,6 +3,7 @@ package UserInterface;
 import Controller.ApplicationController;
 import Exception.JTextFieldException;
 import Exception.JTextFieldEmptyException;
+import Exception.AddRegisterException;
 import Model.Register;
 
 import javax.swing.*;
@@ -13,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class RegisterPanel extends JPanel {
-    private JLabel title, nameLabel, firstNameLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
-    private JTextField nameText, firstNameText, birthdayText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
+    private JLabel title, nameLabel, firstNameLabel, nationalNumberLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
+    private JTextField nameText, firstNameText, birthdayText, nationalNumberText, emailText, passwordText, phoneText, GSMText, streetText, postalCodeText, numberStreetText, signatureText;
     private JButton backButton, registerButton;
 
     private JFrame registerWindow;
     private JFrame loginWindow;
 
-    public RegisterPanel(JFrame registerWindow, JFrame loginWindow) throws JTextFieldException {
+    public RegisterPanel(JFrame registerWindow, JFrame loginWindow) {
         this.registerWindow = registerWindow;
         this.loginWindow = loginWindow;
 
@@ -87,9 +88,24 @@ public class RegisterPanel extends JPanel {
         c.insets = new Insets(0, 0, 20, 0);
         add(birthdayText, c);
 
-        //email area
+        //national number
         c.gridx = 0;
         c.gridy = 4;
+        c.insets = new Insets(0, 0, 20, 0);
+        c.gridwidth = 1;
+        nationalNumberLabel = new JLabel("N° registre national : ");
+        nationalNumberLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        add(nationalNumberLabel, c);
+
+        nationalNumberText = new JTextField(15);
+        c.gridx = 1;
+        c.gridy = 4;
+        c.insets = new Insets(0, 0, 20, 0);
+        add(nationalNumberText, c);
+
+        //email area
+        c.gridx = 0;
+        c.gridy = 5;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         emailLabel = new JLabel("Email : ");
@@ -98,13 +114,13 @@ public class RegisterPanel extends JPanel {
 
         emailText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.insets = new Insets(0, 0, 20, 0);
         add(emailText, c);
 
         //password area
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 6;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         passwordLabel = new JLabel("Mot de passe : ");
@@ -113,13 +129,13 @@ public class RegisterPanel extends JPanel {
 
         passwordText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         c.insets = new Insets(0, 0, 20, 0);
         add(passwordText, c);
 
         //phone area
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 7;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         phoneLabel = new JLabel("Numéro de téléphone : ");
@@ -128,13 +144,13 @@ public class RegisterPanel extends JPanel {
 
         phoneText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 7;
         c.insets = new Insets(0, 0, 20, 0);
         add(phoneText, c);
 
         //GSM area
         c.gridx = 0;
-        c.gridy = 7;
+        c.gridy = 8;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         GSMLabel = new JLabel("Numéro de GSM : ");
@@ -143,13 +159,13 @@ public class RegisterPanel extends JPanel {
 
         GSMText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 8;
         c.insets = new Insets(0, 0, 20, 0);
         add(GSMText, c);
 
         //street area
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 9;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         streetLabel = new JLabel("Nom de rue : ");
@@ -158,13 +174,13 @@ public class RegisterPanel extends JPanel {
 
         streetText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 8;
+        c.gridy = 9;
         c.insets = new Insets(0, 0, 20, 0);
         add(streetText, c);
 
         //numberStreet area
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 10;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         numberStreetLabel = new JLabel("Numéro de rue : ");
@@ -173,13 +189,13 @@ public class RegisterPanel extends JPanel {
 
         numberStreetText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 9;
+        c.gridy = 10;
         c.insets = new Insets(0, 0, 20, 0);
         add(numberStreetText, c);
 
         //postalCode area
         c.gridx = 0;
-        c.gridy = 10;
+        c.gridy = 11;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         postalCodeLabel = new JLabel("Code Postal : ");
@@ -188,13 +204,13 @@ public class RegisterPanel extends JPanel {
 
         postalCodeText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 10;
+        c.gridy = 11;
         c.insets = new Insets(0, 0, 20, 0);
         add(postalCodeText, c);
 
         //signature area
         c.gridx = 0;
-        c.gridy = 11;
+        c.gridy = 12;
         c.insets = new Insets(0, 0, 20, 0);
         c.gridwidth = 1;
         signatureLabel = new JLabel("Signature : ");
@@ -203,7 +219,7 @@ public class RegisterPanel extends JPanel {
 
         signatureText = new JTextField(15);
         c.gridx = 1;
-        c.gridy = 11;
+        c.gridy = 12;
         c.insets = new Insets(0, 0, 20, 0);
         add(signatureText, c);
 
@@ -211,7 +227,7 @@ public class RegisterPanel extends JPanel {
         c.anchor = GridBagConstraints.SOUTH;
         backButton = new JButton("Retour");
         c.gridx = 0;
-        c.gridy = 12;
+        c.gridy = 13;
         c.insets = new Insets(0, 35 ,20, 0);
         BackListener backListener = new BackListener();
         backButton.addActionListener(backListener);
@@ -219,7 +235,7 @@ public class RegisterPanel extends JPanel {
 
         registerButton = new JButton("Inscription");
         c.gridx = 1;
-        c.gridy = 12;
+        c.gridy = 13;
         c.insets = new Insets(0, 0 ,20, 0);
         ButtonListener registerListener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
         registerButton.addActionListener(registerListener);
@@ -236,12 +252,13 @@ public class RegisterPanel extends JPanel {
 
     // Action click on Register Button
     private class ButtonListener implements ActionListener {
-        private ApplicationController controller;
-        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) throws JTextFieldException {
+        private ApplicationController controller = new ApplicationController();
+        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) {
 
         }
         public void actionPerformed(ActionEvent event) {
             ArrayList<Register> registerInfos = new ArrayList<Register>();
+
             try {
                 if (!Objects.equals(nameText.getText(), "")) {
                     Register jNameText = new Register(nameText);
@@ -262,6 +279,13 @@ public class RegisterPanel extends JPanel {
                     registerInfos.add(jBirthdayText);
                 } else {
                     throw new JTextFieldEmptyException("Date de naissance");
+                }
+
+                if (!Objects.equals(nationalNumberText.getText(), "")) {
+                    Register jNationalNumberText = new Register(nationalNumberText);
+                    registerInfos.add(jNationalNumberText);
+                } else {
+                    throw new JTextFieldEmptyException("N° registre national");
                 }
 
                 if (!Objects.equals(emailText.getText(), "")) {
@@ -324,6 +348,12 @@ public class RegisterPanel extends JPanel {
                     signatureText.setText("null");
                     Register jSignatureText = new Register(signatureText);
                     registerInfos.add(jSignatureText);
+                }
+
+                try {
+                    controller.addRegister(registerInfos);
+                } catch (AddRegisterException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
 
             } catch (JTextFieldException e) {
