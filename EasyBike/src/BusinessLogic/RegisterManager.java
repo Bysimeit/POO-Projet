@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class RegisterManager {
     private MemberDataAccess memberDBAccess;
     private ArrayList<Register> registerInfos;
+    private ArrayList<String> loginInfos;
 
     public RegisterManager() {
         setMemberDataAccess(new MemberDBAccess());
@@ -30,5 +31,12 @@ public class RegisterManager {
         }
 
         memberDBAccess.setMemberRegister(relayInfos[0], relayInfos[1], relayInfos[2], relayInfos[3], relayInfos[4], relayInfos[5], relayInfos[6], relayInfos[7], relayInfos[8], relayInfos[9], relayInfos[10], relayInfos[11]);
+    }
+
+    public void loginConnection(Register loginID) {
+        String eMail = loginInfos.get(0);
+        String password = loginInfos.get(1);
+
+        memberDBAccess.loginConnection(eMail, password);
     }
 }

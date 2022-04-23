@@ -3,11 +3,13 @@ package Model;
 import Exception.JTextFieldException;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Register {
     private String textField;
     private String insertion;
+    private ArrayList<String> stringList;
 
     public Register(JTextField jTextField) throws JTextFieldException {
         setTextField(jTextField);
@@ -15,6 +17,10 @@ public class Register {
 
     public Register(String insert) {
         setInsert(insert);
+    }
+
+    public Register() {
+        this.stringList = new ArrayList<String>();
     }
 
     public void setTextField(JTextField jTextField) throws JTextFieldException {
@@ -39,5 +45,13 @@ public class Register {
 
     public String getInsert() {
         return this.insertion;
+    }
+
+    public void addInsertList(String newAdd) {
+        this.stringList.add(newAdd);
+    }
+
+    public ArrayList<String> getStringList() {
+        return this.stringList;
     }
 }

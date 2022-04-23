@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class ApplicationController {
     private RegisterManager manager;
-    private ArrayList<Register> registerInfos;
 
     public ApplicationController() {
         setManager(new RegisterManager());
@@ -20,5 +19,9 @@ public class ApplicationController {
 
     public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
         manager.addRegister(registerInfos);
+    }
+
+    public void loginConnection(Register loginID) {
+        manager.loginConnection(loginID);
     }
 }

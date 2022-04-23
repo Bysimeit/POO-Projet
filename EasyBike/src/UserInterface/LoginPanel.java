@@ -1,7 +1,9 @@
 package UserInterface;
 
+import Controller.ApplicationController;
 import Exception.JTextFieldException;
 import Exception.JTextFieldEmptyException;
+import Model.Register;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,18 +16,6 @@ public class LoginPanel extends JPanel {
     private JTextField emailText, passwordText;
 
     private JFrame loginWindow;
-
-    //click on register button
-    private class ButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            try {
-                RegisterWindow registerWindow = new RegisterWindow(loginWindow);
-                loginWindow.setVisible(false);
-            } catch (JTextFieldException | JTextFieldEmptyException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
     public LoginPanel(JFrame loginWindow) {
         this.loginWindow = loginWindow;
@@ -79,20 +69,47 @@ public class LoginPanel extends JPanel {
         c.insets = new Insets(0, 0 ,0, 0);
         add(passwordText, c);
 
-        //button area
+        //login button
+        LoginListener loginListener = new LoginListener();
         c.anchor = GridBagConstraints.SOUTH;
         loginButton = new JButton("Connexion");
         c.gridx = 0;
         c.gridy = 3;
         c.insets = new Insets(0, 35 ,20, 0);
+        loginButton.addActionListener(loginListener);
         add(loginButton, c);
 
-        ButtonListener listenerRegister = new ButtonListener();
+        //register button
+        RegisterListener listenerRegister = new RegisterListener();
         registerButton = new JButton("Inscription");
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(0, 0 ,20, 0);
         registerButton.addActionListener(listenerRegister);
         add(registerButton, c);
+    }
+
+    //click on register button
+    private class RegisterListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            try {
+                RegisterWindow registerWindow = new RegisterWindow(loginWindow);
+                loginWindow.setVisible(false);
+            } catch (JTextFieldException | JTextFieldEmptyException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private class LoginListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            Register loginId = new Register();
+
+            loginId.addInsertList(emailText.getText());
+            loginId.addInsertList(passwordText.getText());
+
+            ApplicationController controller = new ApplicationController();
+            controller.loginConnection(loginId);
+        }
     }
 }

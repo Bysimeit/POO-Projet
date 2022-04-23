@@ -1,6 +1,7 @@
 package DataAccess;
 
 import Controller.MemberDataAccess;
+import Model.Register;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -94,5 +95,19 @@ public class MemberDBAccess implements MemberDataAccess {
         } catch (SQLException | NoSuchAlgorithmException | ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void loginConnection(String eMail, String password) {
+        singletonConnection = SingletonConnection.getInstance();
+
+        String checkEMail = "SELECT nationalnumber FROM member WHERE email = " + eMail;
+
+        /*
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(checkEMail);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        */
     }
 }
