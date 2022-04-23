@@ -302,23 +302,11 @@ public class RegisterPanel extends JPanel {
                     throw new JTextFieldEmptyException("Mot de passe");
                 }
 
-                if (!Objects.equals(phoneText.getText(), "")) {
-                    Register jPhoneText = new Register(phoneText);
-                    registerInfos.add(jPhoneText);
-                } else {
-                    phoneText.setText("null");
-                    Register jPhoneText = new Register(phoneText);
-                    registerInfos.add(jPhoneText);
-                }
+                Register jPhoneText = new Register(phoneText.getText());
+                registerInfos.add(jPhoneText);
 
-                if (!Objects.equals(GSMText.getText(), "")) {
-                    Register jGSMText = new Register(GSMText);
-                    registerInfos.add(jGSMText);
-                } else {
-                    GSMText.setText("null");
-                    Register jGSMText = new Register(GSMText);
-                    registerInfos.add(jGSMText);
-                }
+                Register jGSMText = new Register(GSMText.getText());
+                registerInfos.add(jGSMText);
 
                 if (!Objects.equals(streetText.getText(), "")) {
                     Register jStreetText = new Register(streetText);
@@ -341,14 +329,8 @@ public class RegisterPanel extends JPanel {
                     throw new JTextFieldEmptyException("Code postal");
                 }
 
-                if (!Objects.equals(signatureText.getText(), "")) {
-                    Register jSignatureText = new Register(signatureText);
-                    registerInfos.add(jSignatureText);
-                } else {
-                    signatureText.setText("null");
-                    Register jSignatureText = new Register(signatureText);
-                    registerInfos.add(jSignatureText);
-                }
+                Register jSignatureText = new Register(signatureText.getText());
+                registerInfos.add(jSignatureText);
 
                 try {
                     controller.addRegister(registerInfos);

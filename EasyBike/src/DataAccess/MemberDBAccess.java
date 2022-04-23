@@ -5,8 +5,11 @@ import Controller.MemberDataAccess;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class MemberDBAccess implements MemberDataAccess {
     private static Connection singletonConnection;
@@ -46,11 +49,13 @@ public class MemberDBAccess implements MemberDataAccess {
             preparedStatement.setInt(2, idAddress);
             preparedStatement.setString(3, nameText);
             preparedStatement.setString(4, firstNameText);
-            Date birthDate = new Date();
+
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedDate = format.format(birthDate);
-            java.sql.Date dateSQL = java.sql.Date.valueOf(formattedDate);
-            preparedStatement.setDate(5, dateSQL);
+            Date birthdayDate = format.parse(birthdayText);
+            GregorianCalendar dateToSend = new GregorianCalendar();
+            dateToSend.setTime(birthdayDate);
+            preparedStatement.setDate(5, new java.sql.Date(dateToSend.getTimeInMillis()));
+
             preparedStatement.setString(6, emailText);
 
             MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
@@ -61,15 +66,32 @@ public class MemberDBAccess implements MemberDataAccess {
                 passwordHashed.append(String.format("%02x", i));
             }
             preparedStatement.setString(7, passwordHashed.toString());
+
             preparedStatement.setNull(8, Types.INTEGER);
-            preparedStatement.setInt(9, Integer.parseInt(phoneText));
-            preparedStatement.setInt(10, Integer.parseInt(GSMText));
-            preparedStatement.setString(11, signatureText);
+
+            if (phoneText == null) {
+                preparedStatement.setNull(9, Types.INTEGER);
+            } else {
+                preparedStatement.setInt(9, Integer.parseInt(phoneText));
+            }
+            if (GSMText == null) {
+                preparedStatement.setNull(10, Types.INTEGER);
+            } else {
+                preparedStatement.setInt(10, Integer.parseInt(GSMText));
+            }
+            if (signatureText == null) {
+                preparedStatement.setNull(11, Types.INTEGER);
+            } else {
+                preparedStatement.setString(11, signatureText);
+            }
+
             nbLinesChanged = preparedStatement.executeUpdate();
             System.out.println(nbLinesChanged + " line changed successfully !");
 
             singletonConnection.close();
-        } catch (SQLException | NoSuchAlgorithmException e) {
+
+            System.out.println("New member added successfully to the DB !");
+        } catch (SQLException | NoSuchAlgorithmException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
