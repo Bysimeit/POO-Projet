@@ -5,7 +5,6 @@ import Controller.MemberDataAccess;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,14 +42,15 @@ public class MemberDBAccess implements MemberDataAccess {
             System.out.println("Id number : " + idAddress + " searched successfully");
 
             preparedStatement = singletonConnection.prepareStatement(insertMember);
-            int nationalNumberInt = Integer.parseInt(nationalNumberText);
-            preparedStatement.setInt(1, nationalNumberInt);
+            preparedStatement.setInt(1, Integer.parseInt(nationalNumberText));
             preparedStatement.setInt(2, idAddress);
             preparedStatement.setString(3, nameText);
             preparedStatement.setString(4, firstNameText);
+            Date birthDate = new Date();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            Date birthDate = format.parse(birthdayText);
-            preparedStatement.setDate(5, (java.sql.Date) birthDate);
+            String formattedDate = format.format(birthDate);
+            java.sql.Date dateSQL = java.sql.Date.valueOf(formattedDate);
+            preparedStatement.setDate(5, dateSQL);
             preparedStatement.setString(6, emailText);
 
             MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
@@ -65,10 +65,11 @@ public class MemberDBAccess implements MemberDataAccess {
             preparedStatement.setInt(9, Integer.parseInt(phoneText));
             preparedStatement.setInt(10, Integer.parseInt(GSMText));
             preparedStatement.setString(11, signatureText);
-            preparedStatement.executeQuery();
+            nbLinesChanged = preparedStatement.executeUpdate();
+            System.out.println(nbLinesChanged + " line changed successfully !");
 
             singletonConnection.close();
-        } catch (SQLException | ParseException | NoSuchAlgorithmException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
