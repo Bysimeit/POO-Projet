@@ -101,6 +101,7 @@ public class LoginPanel extends JPanel {
         }
     }
 
+    //click on login button
     private class LoginListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Register loginId = new Register();
