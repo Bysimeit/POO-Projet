@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class LoginPanel extends JPanel {
     private JButton loginButton, registerButton;
@@ -106,11 +107,23 @@ public class LoginPanel extends JPanel {
         public void actionPerformed(ActionEvent event) {
             Register loginId = new Register();
 
-            loginId.addInsertList(emailText.getText());
-            loginId.addInsertList(passwordText.getText());
+            try {
+                if (!Objects.equals(emailText.getText(), "")) {
+                    loginId.addInsertList(emailText.getText());
+                } else {
+                    throw new JTextFieldEmptyException("Email");
+                }
+                if (!Objects.equals(passwordText.getText(), "")) {
+                    loginId.addInsertList(passwordText.getText());
+                } else {
+                    throw new JTextFieldEmptyException("Mot de passe");
+                }
 
-            ApplicationController controller = new ApplicationController();
-            controller.loginConnection(loginId);
+                ApplicationController controller = new ApplicationController();
+                controller.loginConnection(loginId);
+            } catch (JTextFieldEmptyException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

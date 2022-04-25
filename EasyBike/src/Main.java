@@ -1,16 +1,14 @@
 import DataAccess.ConnectDB;
 import DataAccess.EmployeeDBAccess;
-import Exception.JTextFieldException;
-import Exception.JTextFieldEmptyException;
 import UserInterface.EmployeeWindow;
 import UserInterface.LoginWindow;
 
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) throws JTextFieldException, JTextFieldEmptyException {
+    public static void main(String[] args) {
         LoginWindow firstWindow = new LoginWindow();
-        EmployeeWindow employeeWindow = new EmployeeWindow();
+        //EmployeeWindow employeeWindow = new EmployeeWindow();
 
         //ConnectDB connection = new ConnectDB();
 

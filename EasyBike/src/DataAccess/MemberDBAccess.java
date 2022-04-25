@@ -1,8 +1,10 @@
 package DataAccess;
 
 import Controller.MemberDataAccess;
+import Exception.LoginConnectionException;
 import Model.Register;
 
+import javax.swing.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -30,20 +32,17 @@ public class MemberDBAccess implements MemberDataAccess {
             ResultSet data = preparedStatement.executeQuery();
             data.next();
             int idLocality = data.getInt("id");
-            System.out.println("Id number : " + idLocality + " searched successfully !");
 
             preparedStatement = singletonConnection.prepareStatement(insertAddress);
             preparedStatement.setInt(1, idLocality);
             preparedStatement.setString(2, streetText);
             preparedStatement.setString(3, numberStreetText);
             int nbLinesChanged = preparedStatement.executeUpdate();
-            System.out.println(nbLinesChanged + " line changed successfully !");
 
             preparedStatement = singletonConnection.prepareStatement(searchIdLocation);
             data = preparedStatement.executeQuery();
             data.next();
             int idAddress = data.getInt("id");
-            System.out.println("Id number : " + idAddress + " searched successfully");
 
             preparedStatement = singletonConnection.prepareStatement(insertMember);
             preparedStatement.setInt(1, Integer.parseInt(nationalNumberText));
@@ -61,10 +60,10 @@ public class MemberDBAccess implements MemberDataAccess {
 
             MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
             hash256.update(passwordText.getBytes());
-            byte[] bytes = hash256.digest();
-            StringBuilder passwordHashed = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                passwordHashed.append(String.format("%02x", i));
+            byte[] digest = hash256.digest();
+            StringBuffer passwordHashed = new StringBuffer();
+            for (byte d : digest) {
+                passwordHashed.append(String.format("%02x", d & 0xff));
             }
             preparedStatement.setString(7, passwordHashed.toString());
 
@@ -98,16 +97,30 @@ public class MemberDBAccess implements MemberDataAccess {
     }
 
     public void loginConnection(String eMail, String password) {
-        singletonConnection = SingletonConnection.getInstance();
-
-        String checkEMail = "SELECT nationalnumber FROM member WHERE email = " + eMail;
-
-        /*
         try {
+            MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
+            hash256.update(password.getBytes());
+            byte[] digest = hash256.digest();
+            StringBuffer passwordHashed = new StringBuffer();
+            for (byte d : digest) {
+                passwordHashed.append(String.format("%02x", d & 0xff));
+            }
+
+            singletonConnection = SingletonConnection.getInstance();
+            String checkEMail = "SELECT id FROM employee WHERE email = \"" + eMail + "\" AND password = \"" + passwordHashed.toString() + "\"";
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(checkEMail);
-        } catch (SQLException e) {
+
+            System.out.println(passwordHashed);
+
+            ResultSet data = preparedStatement.executeQuery();
+            data.next();
+            int idUser = data.getInt("id");
+            System.out.println("User found successfully ! ID number : " + idUser);
+
+            preparedStatement.close();
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            JOptionPane.showMessageDialog(null, new LoginConnectionException().getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
-        */
     }
 }

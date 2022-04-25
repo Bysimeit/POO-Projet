@@ -1,7 +1,5 @@
 package Exception;
 
-import javax.swing.*;
-
 public class JTextFieldEmptyException extends Exception {
     private String jTextFieldEmpty;
 
