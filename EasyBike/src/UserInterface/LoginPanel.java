@@ -45,7 +45,7 @@ public class LoginPanel extends JPanel {
         c.gridy = 0;
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.NORTH;
-        c.insets = new Insets(25, 0, 0, 0);
+        c.insets = new Insets(35, 0, 0, 0);
         c.weighty = 1;
         add(title, c);
 
@@ -59,6 +59,7 @@ public class LoginPanel extends JPanel {
         c.gridwidth = 1;
         emailLabel = new JLabel("Email : ");
         emailLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        c.insets = new Insets(0, 50, 0, 0);
         add(emailLabel, c);
 
         emailText = new JTextField(15);
