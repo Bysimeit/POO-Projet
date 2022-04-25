@@ -22,8 +22,8 @@ public class ApplicationController {
         register.addRegister(registerInfos);
     }
 
-    public void loginConnection(Register loginID) {
+    public void loginConnection(Register loginID, Boolean isMember) {
         LoginManager login = new LoginManager();
-        login.loginConnection(loginID);
+        login.loginConnection(loginID, isMember);
     }
 }

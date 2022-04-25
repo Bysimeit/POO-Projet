@@ -107,15 +107,13 @@ public class MemberDBAccess implements MemberDataAccess {
             }
 
             singletonConnection = SingletonConnection.getInstance();
-            String checkEMail = "SELECT id FROM employee WHERE email = \"" + eMail + "\" AND password = \"" + passwordHashed.toString() + "\"";
+            String checkEMail = "SELECT nationalnumber FROM member WHERE email = \"" + eMail + "\" AND password = \"" + passwordHashed.toString() + "\"";
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(checkEMail);
-
-            System.out.println(passwordHashed);
 
             ResultSet data = preparedStatement.executeQuery();
             data.next();
-            int idUser = data.getInt("id");
-            System.out.println("User found successfully ! ID number : " + idUser);
+            int idUser = data.getInt("nationalnumber");
+            System.out.println("User found successfully ! National Number : " + idUser);
 
             preparedStatement.close();
         } catch (SQLException | NoSuchAlgorithmException e) {

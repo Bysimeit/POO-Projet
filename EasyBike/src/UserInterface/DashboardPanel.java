@@ -42,7 +42,7 @@ public class DashboardPanel extends JPanel {
 
         //disconnect button
         c.anchor = GridBagConstraints.SOUTH;
-        disconnectButton = new JButton("se déconnecter");
+        disconnectButton = new JButton("Se déconnecter");
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(0, 0 ,25, 50);

@@ -9,12 +9,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Objects;
 
 public class LoginPanel extends JPanel {
     private JButton loginButton, registerButton;
     private JLabel title, emailLabel, passwordLabel;
     private JTextField emailText, passwordText;
+
+    private JRadioButton memberButton, employeeButton;
+    private ButtonGroup buttonGroup;
+    private Boolean isMember = true;
 
     private JFrame loginWindow;
 
@@ -25,6 +31,12 @@ public class LoginPanel extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
 
+        this.memberButton = new JRadioButton("Client(e)", true);
+        this.employeeButton = new JRadioButton("Employé(e)", false);
+
+        this.buttonGroup = new ButtonGroup();
+        this.buttonGroup.add(memberButton);
+        this.buttonGroup.add(employeeButton);
 
         //title
         title = new JLabel("EasyBike");
@@ -70,12 +82,23 @@ public class LoginPanel extends JPanel {
         c.insets = new Insets(0, 0 ,0, 0);
         add(passwordText, c);
 
+        // Radio Button
+        RadioButtonListener radioButtonListener = new RadioButtonListener();
+        c.gridx = 0;
+        c.gridy = 3;
+        memberButton.addItemListener(radioButtonListener);
+        add(memberButton, c);
+        c.gridx = 1;
+        c.gridy = 3;
+        employeeButton.addItemListener(radioButtonListener);
+        add(employeeButton, c);
+
         //login button
         LoginListener loginListener = new LoginListener();
         c.anchor = GridBagConstraints.SOUTH;
         loginButton = new JButton("Connexion");
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 4;
         c.insets = new Insets(0, 35 ,20, 0);
         loginButton.addActionListener(loginListener);
         add(loginButton, c);
@@ -84,7 +107,7 @@ public class LoginPanel extends JPanel {
         RegisterListener listenerRegister = new RegisterListener();
         registerButton = new JButton("Inscription");
         c.gridx = 1;
-        c.gridy = 3;
+        c.gridy = 4;
         c.insets = new Insets(0, 0 ,20, 0);
         registerButton.addActionListener(listenerRegister);
         add(registerButton, c);
@@ -120,9 +143,19 @@ public class LoginPanel extends JPanel {
                 }
 
                 ApplicationController controller = new ApplicationController();
-                controller.loginConnection(loginId);
+                controller.loginConnection(loginId, isMember);
             } catch (JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private class RadioButtonListener implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getSource() == memberButton && event.getStateChange() == ItemEvent.SELECTED) {
+                isMember = true;
+            } else if (event.getSource() == employeeButton && event.getStateChange() == ItemEvent.SELECTED) {
+                isMember = false;
             }
         }
     }
