@@ -130,6 +130,7 @@ public class LoginPanel extends JPanel {
     private class LoginListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Register loginId = new Register();
+            boolean isConnected;
 
             try {
                 if (!Objects.equals(emailText.getText(), "")) {
@@ -144,7 +145,11 @@ public class LoginPanel extends JPanel {
                 }
 
                 ApplicationController controller = new ApplicationController();
-                controller.loginConnection(loginId, isMember);
+                isConnected = controller.loginConnection(loginId, isMember);
+                if (!isMember && isConnected) {
+                    loginWindow.setVisible(false);
+                    EmployeeWindow employeeWindow = new EmployeeWindow(loginWindow, loginId);
+                }
             } catch (JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }

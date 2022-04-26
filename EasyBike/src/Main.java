@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         LoginWindow firstWindow = new LoginWindow();
-        EmployeeWindow employeeWindow = new EmployeeWindow();
+        //EmployeeWindow employeeWindow = new EmployeeWindow();
 
 
         //ConnectDB connection = new ConnectDB();

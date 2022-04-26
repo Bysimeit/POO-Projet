@@ -9,7 +9,6 @@ public class RepairSheetPanel extends JPanel {
 
 
     public RepairSheetPanel(){
-
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);

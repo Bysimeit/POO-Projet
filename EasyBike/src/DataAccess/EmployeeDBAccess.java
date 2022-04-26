@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EmployeeDBAccess implements EmployeeDataAccess {
     private static Connection singletonConnection;
 
-    public void loginConnection(String eMail, String password) {
+    public boolean loginConnection(String eMail, String password) {
         try {
             MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
             hash256.update(password.getBytes());
@@ -32,13 +32,15 @@ public class EmployeeDBAccess implements EmployeeDataAccess {
             ResultSet data = preparedStatement.executeQuery();
             data.next();
             int idUser = data.getInt("id");
-            System.out.println("User found successfully ! ID number : " + idUser);
+            System.out.println("Employee found successfully ! ID number : " + idUser);
 
             preparedStatement.close();
         } catch (SQLException | NoSuchAlgorithmException e) {
             JOptionPane.showMessageDialog(null, new LoginConnectionException().getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
+            return false;
         }
+
+        return true;
     }
 
     public ArrayList<String> getEmployeeEMail() {
@@ -62,5 +64,51 @@ public class EmployeeDBAccess implements EmployeeDataAccess {
         }
 
         return eMails;
+    }
+
+    public ArrayList<String> getInfoEmployee(String eMail) {
+        ArrayList<String> result = new ArrayList<String>();
+        singletonConnection = SingletonConnection.getInstance();
+
+        String query = "SELECT * FROM employee WHERE email = \"" + eMail + "\"";
+
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            data.next();
+            result.add(data.getString("name"));
+            result.add(data.getString("firstname"));
+            result.add(String.valueOf(data.getInt("responsiblefor")));
+            result.add(data.getString("function"));
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    public ArrayList<String> getResponsibleInfo(int responsibleID) {
+        ArrayList<String> result = new ArrayList<String>();
+        singletonConnection = SingletonConnection.getInstance();
+
+        String query = "SELECT * FROM employee WHERE id = " + responsibleID;
+
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            data.next();
+            result.add(data.getString("name"));
+            result.add(data.getString("firstname"));
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 }

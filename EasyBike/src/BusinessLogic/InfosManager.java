@@ -1,16 +1,17 @@
 package BusinessLogic;
 
-import Controller.EmployeeDataAccess;
 import Controller.MemberDataAccess;
 import DataAccess.EmployeeDBAccess;
 import DataAccess.MemberDBAccess;
 import Model.Register;
 
-public class LoginManager {
+import java.util.ArrayList;
+
+public class InfosManager {
     private MemberDataAccess memberDBAccess;
     private EmployeeDBAccess employeeDBAccess;
 
-    public LoginManager() {
+    public InfosManager() {
         setMemberDataAccess(new MemberDBAccess());
         setEmployeeDataAccess(new EmployeeDBAccess());
     }
@@ -23,17 +24,13 @@ public class LoginManager {
         this.employeeDBAccess = newEmployeeDBAccess;
     }
 
-    public boolean loginConnection(Register loginID, Boolean isMember) {
+    public ArrayList<String> searchEmployeeInfo(Register loginID) {
         String eMail = loginID.getStringList().get(0);
-        String password = loginID.getStringList().get(1);
 
-        boolean isConnected;
-        if (isMember) {
-            isConnected = memberDBAccess.loginConnection(eMail, password);
-        } else {
-            isConnected = employeeDBAccess.loginConnection(eMail, password);
-        }
+        return employeeDBAccess.getInfoEmployee(eMail);
+    }
 
-        return isConnected;
+    public ArrayList<String> searchResponsibleInfo(int responsible) {
+        return employeeDBAccess.getResponsibleInfo(responsible);
     }
 }

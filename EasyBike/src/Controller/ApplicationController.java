@@ -1,5 +1,6 @@
 package Controller;
 
+import BusinessLogic.InfosManager;
 import BusinessLogic.LoginManager;
 import BusinessLogic.RegisterManager;
 import Model.Register;
@@ -8,22 +9,37 @@ import Exception.AddRegisterException;
 import java.util.ArrayList;
 
 public class ApplicationController {
-    private RegisterManager register;
+    private RegisterManager registerManager;
+    private InfosManager infosManager;
 
     public ApplicationController() {
-        setManager(new RegisterManager());
+        setRegisterManager(new RegisterManager());
+        setInfosManager(new InfosManager());
     }
 
-    public void setManager(RegisterManager newManager) {
-        this.register = newManager;
+    public void setRegisterManager(RegisterManager newManager) {
+        this.registerManager = newManager;
+    }
+
+    public void setInfosManager(InfosManager newInfosManager) {
+        this.infosManager = newInfosManager;
     }
 
     public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
-        register.addRegister(registerInfos);
+        registerManager.addRegister(registerInfos);
     }
 
-    public void loginConnection(Register loginID, Boolean isMember) {
+    public boolean loginConnection(Register loginID, Boolean isMember) {
         LoginManager login = new LoginManager();
-        login.loginConnection(loginID, isMember);
+
+        return login.loginConnection(loginID, isMember);
+    }
+
+    public ArrayList<String> searchEmployeeInfo(Register loginID) {
+        return infosManager.searchEmployeeInfo(loginID);
+    }
+
+    public ArrayList<String> searchResponsibleInfo(int responsible) {
+        return infosManager.searchResponsibleInfo(responsible);
     }
 }

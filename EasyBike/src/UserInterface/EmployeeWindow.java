@@ -1,5 +1,7 @@
 package UserInterface;
 
+import Model.Register;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -13,8 +15,9 @@ public class EmployeeWindow extends JFrame{
     private JMenuBar menuBar;
     private JMenu infrastructureMenu, dashboardMenu;
     private Container mainContent;
+    private DashboardPanel dashboardPanel;
 
-    public EmployeeWindow(){
+    public EmployeeWindow(JFrame loginWindow, Register loginID){
         super("Employé");
         setBounds(100,100,450,450);
 
@@ -25,6 +28,8 @@ public class EmployeeWindow extends JFrame{
                 System.exit(0);
             }
         });
+
+        dashboardPanel = new DashboardPanel(this, loginWindow, loginID);
 
         //create menu
         menuBar = new JMenuBar();
@@ -45,7 +50,7 @@ public class EmployeeWindow extends JFrame{
 
         mainContent = this.getContentPane();
         mainContent.setLayout(new BorderLayout());
-        mainContent.add(new DashboardPanel(), BorderLayout.CENTER);
+        mainContent.add(dashboardPanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -80,7 +85,7 @@ public class EmployeeWindow extends JFrame{
         public void menuSelected(MenuEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new DashboardPanel(), BorderLayout.CENTER);
+            mainContent.add(dashboardPanel, BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

@@ -96,7 +96,7 @@ public class MemberDBAccess implements MemberDataAccess {
         }
     }
 
-    public void loginConnection(String eMail, String password) {
+    public boolean loginConnection(String eMail, String password) {
         try {
             MessageDigest hash256 = MessageDigest.getInstance("SHA-256");
             hash256.update(password.getBytes());
@@ -113,12 +113,14 @@ public class MemberDBAccess implements MemberDataAccess {
             ResultSet data = preparedStatement.executeQuery();
             data.next();
             int idUser = data.getInt("nationalnumber");
-            System.out.println("User found successfully ! National Number : " + idUser);
+            System.out.println("Member found successfully ! National Number : " + idUser);
 
             preparedStatement.close();
         } catch (SQLException | NoSuchAlgorithmException e) {
             JOptionPane.showMessageDialog(null, new LoginConnectionException().getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
+            return false;
         }
+
+        return true;
     }
 }
