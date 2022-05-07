@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="VPS MySQL Simon" uuid="e208afab-f064-4879-8d9d-0cdfa49657e3">
+    <data-source source="LOCAL" name="Server DB" uuid="ffb75142-1511-4e1d-8d5f-d47496e5bab9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://82.165.120.162:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://82.165.120.162:3306/EasyBike</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         LoginWindow firstWindow = new LoginWindow();
         //EmployeeWindow employeeWindow = new EmployeeWindow();
+        RepairSheetPanel repairSheetPanel = new RepairSheetPanel();
 
 
         //ConnectDB connection = new ConnectDB();

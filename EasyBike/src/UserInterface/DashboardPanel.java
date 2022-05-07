@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class DashboardPanel extends JPanel {
     private JLabel helloLabel, jobLabel, chiefLabel;
-    private JButton disconnectButton;
     private JFrame employeeWindow, loginWindow;
 
     public DashboardPanel(JFrame employeeWindow, JFrame loginWindow, Register loginID){
@@ -58,22 +57,6 @@ public class DashboardPanel extends JPanel {
         c.insets = new Insets(10, 0, 30, 10);
         chiefLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(chiefLabel, c);
-
-        //disconnect button
-        c.anchor = GridBagConstraints.SOUTH;
-        disconnectButton = new JButton("Se déconnecter");
-        c.gridx = 1;
-        c.gridy = 3;
-        c.insets = new Insets(0, 0 ,25, 50);
-        DisconnectButtonListener disconnectButtonListener = new DisconnectButtonListener();
-        disconnectButton.addActionListener(disconnectButtonListener);
-        add(disconnectButton, c);
     }
 
-    private class DisconnectButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            employeeWindow.setVisible(false);
-            loginWindow.setVisible(true);
-        }
-    }
 }

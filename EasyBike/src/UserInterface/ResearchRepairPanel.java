@@ -2,13 +2,15 @@ package UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class InfrastructurePanel extends JPanel {
+public class ResearchRepairPanel extends JPanel {
     private JTextField bikeText, repairText;
     private JLabel bikeLabel, repairLabel;
     private JButton searchBikeButton, searchRepairButton;
 
-    public InfrastructurePanel(){
+    public ResearchRepairPanel(JFrame employeeWindow){
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
@@ -39,28 +41,17 @@ public class InfrastructurePanel extends JPanel {
         c.insets = new Insets(0, 0 ,70, 0);
         add(searchRepairButton, c);
 
-        bikeLabel = new JLabel("Recherche d'un vélo : ");
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 1;
-        c.insets = new Insets(0, 50, 0, 0);
-        bikeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        add(bikeLabel, c);
+    }
 
-        bikeText = new JTextField(10);
-        c.gridx = 1;
-        c.gridy = 2;
-        c.gridwidth = 1;
-        c.insets = new Insets(0, 0, 0, 0);
-        c.weighty = 1;
-        add(bikeText, c);
+    public class ButtonListener implements ActionListener{
 
-        searchBikeButton = new JButton("Recherche");
-        c.gridx = 1;
-        c.gridy = 3;
-        c.insets = new Insets(0, 0 ,70, 0);
-        add(searchBikeButton, c);
-
-
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            /*mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new RepairSheetPanel(), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);*/
+        }
     }
 }

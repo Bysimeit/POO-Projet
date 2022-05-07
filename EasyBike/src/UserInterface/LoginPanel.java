@@ -62,7 +62,7 @@ public class LoginPanel extends JPanel {
         c.insets = new Insets(0, 50, 0, 0);
         add(emailLabel, c);
 
-        emailText = new JTextField(15);
+        emailText = new JTextField("miam@mcdo.com",15);
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(0, 0, 0, 0);
@@ -77,7 +77,7 @@ public class LoginPanel extends JPanel {
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(passwordLabel, c);
 
-        passwordText = new JTextField(15);
+        passwordText = new JTextField("jaifaim",15);
         c.gridx = 1;
         c.gridy = 2;
         c.insets = new Insets(0, 0 ,0, 0);
