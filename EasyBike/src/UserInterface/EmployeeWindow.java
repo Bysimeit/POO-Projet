@@ -118,7 +118,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new RepairSheetPanel(), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -131,7 +131,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new RepairSheetPanel(), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

@@ -10,7 +10,7 @@ public class ResearchRepairPanel extends JPanel {
     private JLabel bikeLabel, repairLabel;
     private JButton searchBikeButton, searchRepairButton;
 
-    public ResearchRepairPanel(JFrame employeeWindow){
+    public ResearchRepairPanel(){
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
