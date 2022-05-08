@@ -16,6 +16,7 @@ public class EmployeeWindow extends JFrame{
     private Container mainContent;
     private DashboardPanel dashboardPanel;
     private ResearchRepairPanel researchRepairPanel;
+    private JFrame loginWindow;
 
     public EmployeeWindow(JFrame loginWindow, Register loginID){
         super("Employé");
@@ -29,6 +30,7 @@ public class EmployeeWindow extends JFrame{
             }
         });
 
+        this.loginWindow = loginWindow;
         dashboardPanel = new DashboardPanel(this, loginWindow, loginID);
 
         //create menu
@@ -69,6 +71,7 @@ public class EmployeeWindow extends JFrame{
 
         //create events JMenuItems
         profileItem.addActionListener(new ProfileListener());
+        disconnectItem.addActionListener(new DisconnectListener());
         modifyItem.addActionListener(new ModifyListener());
         deleteItem.addActionListener(new DeleteListener());
         addItem.addActionListener(new AddListener());
@@ -87,8 +90,7 @@ public class EmployeeWindow extends JFrame{
     //events DashboardItem
 
     //click profileItem
-    public class ProfileListener implements ActionListener{
-
+    public class ProfileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
@@ -100,46 +102,42 @@ public class EmployeeWindow extends JFrame{
     }
 
     //click disconnectItem
-    public class DisconnectListener implements ActionListener{
-
+    public class DisconnectListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //employeeWindow.setVisible(false);
-            //loginWindow.setVisible(true);
+            setVisible(false);
+            loginWindow.setVisible(true);
         }
     }
 
     //events CRUDItem
 
     //click modifyItem
-    public class ModifyListener implements ActionListener{
-
+    public class ModifyListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
     }
 
     //click deleteItem
-    public class DeleteListener implements ActionListener{
-
+    public class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
     }
 
     //click addItem
-    public class AddListener implements ActionListener{
-
+    public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();

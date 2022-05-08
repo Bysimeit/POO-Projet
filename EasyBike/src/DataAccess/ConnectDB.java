@@ -3,9 +3,9 @@ package DataAccess;
 import java.sql.*;
 
 public class ConnectDB {
-    private final String url = "jdbc:mysql://localhost:3306/EasyBike";
-    private final String userName = "user";
-    private final String password = "password";
+    private final String url = "jdbc:mysql://82.165.120.162:3306/EasyBike";
+    private final String userName = "program";
+    private final String password = "SaucissonPower";
 
     private Connection connect;
 

@@ -12,7 +12,7 @@ public class RepairSheetPanel extends JPanel {
     private JButton backButton, modifyButton;
 
 
-    public RepairSheetPanel(){
+    public RepairSheetPanel() {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -140,6 +140,5 @@ public class RepairSheetPanel extends JPanel {
         c.gridy = 7;
         c.insets = new Insets(0, 0 ,0, 0);
         add(modifyButton, c);
-
     }
 }
