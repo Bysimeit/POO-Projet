@@ -10,12 +10,15 @@ public class RepairSheetPanel extends JPanel {
     private Checkbox isUrgentCheck;
     private JTextArea remarkArea;
     private JButton backButton, modifyButton;
+    private boolean createForAdd;
 
 
-    public RepairSheetPanel() {
+    public RepairSheetPanel(boolean createForAdd) {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
+
+        this.createForAdd = createForAdd;
 
         idLabel = new JLabel("Identifiant de la fiche de réparation : ");
         idLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -121,7 +124,7 @@ public class RepairSheetPanel extends JPanel {
         c.insets = new Insets(0, 0, 0, 0);
         add(new JScrollPane(stationList), c);
 
-        informationLabel = new JLabel("* sont des champs facultatif");
+        informationLabel = new JLabel("* sont des champs facultatifs");
         c.gridx = 0;
         c.gridy = 6;
         c.gridwidth = 1;
@@ -135,7 +138,11 @@ public class RepairSheetPanel extends JPanel {
         c.insets = new Insets(0, 0 ,0, 0);
         add(backButton, c);
 
-        modifyButton = new JButton("Modifier");
+        if(createForAdd){
+            modifyButton = new JButton("Créer");
+        }else{
+            modifyButton = new JButton("Modifier");
+        }
         c.gridx = 1;
         c.gridy = 7;
         c.insets = new Insets(0, 0 ,0, 0);

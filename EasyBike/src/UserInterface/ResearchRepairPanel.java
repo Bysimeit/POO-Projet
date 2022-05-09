@@ -11,14 +11,16 @@ public class ResearchRepairPanel extends JPanel {
     private JButton searchBikeButton, searchRepairButton;
     private Container container;
     private EmployeeWindow employeeWindow;
+    private boolean createForDestroy;
 
-    public ResearchRepairPanel(Container container, EmployeeWindow employeeWindow) {
+    public ResearchRepairPanel(Container container, EmployeeWindow employeeWindow, boolean createForDestroy) {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
 
         this.container = container;
         this.employeeWindow = employeeWindow;
+        this.createForDestroy = createForDestroy;
 
         //main area
         repairLabel = new JLabel("Recherche fiche de réparation : ");
@@ -39,7 +41,11 @@ public class ResearchRepairPanel extends JPanel {
         c.weighty = 1;
         add(repairText, c);
 
-        searchRepairButton = new JButton("Recherche");
+        if (createForDestroy){
+            searchRepairButton = new JButton("Supprimer");
+        }else {
+            searchRepairButton = new JButton("Rechercher");
+        }
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(0, 0 ,70, 0);
@@ -53,7 +59,7 @@ public class ResearchRepairPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             container.removeAll();
             container.setLayout(new BorderLayout());
-            container.add(new RepairSheetPanel(), BorderLayout.CENTER);
+            container.add(new RepairSheetPanel(false), BorderLayout.CENTER);
             container.repaint();
             employeeWindow.setVisible(true);
         }

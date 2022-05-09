@@ -75,6 +75,7 @@ public class EmployeeWindow extends JFrame{
         modifyItem.addActionListener(new ModifyListener());
         deleteItem.addActionListener(new DeleteListener());
         addItem.addActionListener(new AddListener());
+        research1Item.addActionListener(new Reserch1Listener());
 
         this.setJMenuBar(menuBar);
 
@@ -118,7 +119,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, false), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -130,7 +131,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, true), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -142,7 +143,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new RepairSheetPanel(), BorderLayout.CENTER);
+            mainContent.add(new RepairSheetPanel(true), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -151,6 +152,16 @@ public class EmployeeWindow extends JFrame{
     //events ResearchItem
 
     //event research1Item
+    public class Reserch1Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new Research1Panel(), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);
+        }
+    }
     //event research2Item
     //event research3Item
 
