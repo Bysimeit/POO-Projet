@@ -75,7 +75,9 @@ public class EmployeeWindow extends JFrame{
         modifyItem.addActionListener(new ModifyListener());
         deleteItem.addActionListener(new DeleteListener());
         addItem.addActionListener(new AddListener());
-        research1Item.addActionListener(new Reserch1Listener());
+        research1Item.addActionListener(new Research1Listener());
+        research2Item.addActionListener(new Research2Listener());
+        research3Item.addActionListener(new Research3Listener());
 
         this.setJMenuBar(menuBar);
 
@@ -152,7 +154,7 @@ public class EmployeeWindow extends JFrame{
     //events ResearchItem
 
     //event research1Item
-    public class Reserch1Listener implements ActionListener {
+    public class Research1Listener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
@@ -162,8 +164,29 @@ public class EmployeeWindow extends JFrame{
             setVisible(true);
         }
     }
-    //event research2Item
-    //event research3Item
 
+    //event research2Item
+    public class Research2Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new Research2Panel(), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);
+        }
+    }
+
+    //event research3Item
+    public class Research3Listener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new Research3Panel(), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);
+        }
+    }
 
 }
