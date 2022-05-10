@@ -81,6 +81,7 @@ public class EmployeeDBAccess implements EmployeeDataAccess {
             result.add(data.getString("firstname"));
             result.add(String.valueOf(data.getInt("responsiblefor")));
             result.add(data.getString("function"));
+            result.add(String.valueOf(data.getInt("id")));
 
             preparedStatement.close();
         } catch (SQLException e) {

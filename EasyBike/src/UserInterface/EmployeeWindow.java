@@ -17,6 +17,7 @@ public class EmployeeWindow extends JFrame{
     private DashboardPanel dashboardPanel;
     private ResearchRepairPanel researchRepairPanel;
     private JFrame loginWindow;
+    private Register loginID;
 
     public EmployeeWindow(JFrame loginWindow, Register loginID){
         super("Employé");
@@ -31,6 +32,7 @@ public class EmployeeWindow extends JFrame{
         });
 
         this.loginWindow = loginWindow;
+        this.loginID = loginID;
         dashboardPanel = new DashboardPanel(this, loginWindow, loginID);
 
         //create menu
@@ -121,7 +123,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, false), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, false, loginID), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -133,7 +135,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, true), BorderLayout.CENTER);
+            mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, true, loginID), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -145,7 +147,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new RepairSheetPanel(true), BorderLayout.CENTER);
+            mainContent.add(new RepairSheetPanel(true, loginID), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

@@ -3,6 +3,7 @@ package Controller;
 import BusinessLogic.InfosManager;
 import BusinessLogic.LoginManager;
 import BusinessLogic.RegisterManager;
+import BusinessLogic.RepairSheetManager;
 import Model.Register;
 import Exception.AddRegisterException;
 
@@ -41,5 +42,10 @@ public class ApplicationController {
 
     public ArrayList<String> searchResponsibleInfo(int responsible) {
         return infosManager.searchResponsibleInfo(responsible);
+    }
+
+    public void addRepairSheet(ArrayList<Register> repairSheetInfos, int idEmployee, boolean isUrgent) {
+        RepairSheetManager repairSheetManager = new RepairSheetManager();
+        repairSheetManager.addRepairSheet(repairSheetInfos, idEmployee, isUrgent);
     }
 }

@@ -8,7 +8,7 @@ import Model.Register;
 
 public class LoginManager {
     private MemberDataAccess memberDBAccess;
-    private EmployeeDBAccess employeeDBAccess;
+    private EmployeeDataAccess employeeDBAccess;
 
     public LoginManager() {
         setMemberDataAccess(new MemberDBAccess());
