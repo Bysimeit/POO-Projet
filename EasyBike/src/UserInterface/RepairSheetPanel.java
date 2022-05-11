@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class RepairSheetPanel extends JPanel {
     private JLabel idLabel, earlyDateLabel, endDateLabel, emergencyLabel, remarkLabel, stationLabel,informationLabel;
-    private JTextField idText, earlyDateText, endDateText, problemText;
+    private JTextField idText, earlyDateText, endDateText;
     private JComboBox stationList;
     private Checkbox isUrgentCheck;
     private JTextArea remarkArea;
