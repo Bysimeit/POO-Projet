@@ -1,11 +1,16 @@
 package UserInterface;
 
+import Controller.ApplicationController;
 import Model.Register;
+
+import Exception.JTextFieldEmptyException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ResearchRepairPanel extends JPanel {
     private JTextField bikeText, repairText;
@@ -51,25 +56,59 @@ public class ResearchRepairPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(0, 0 ,70, 0);
-        ButtonListener buttonListener = new ButtonListener();
 
         if (!createForDestroy) {
-            searchRepairButton.addActionListener(buttonListener);
+            ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
+            searchRepairButton.addActionListener(buttonListenerModify);
         } else {
-
+            ButtonListenerDel buttonListenerDel = new ButtonListenerDel();
+            searchRepairButton.addActionListener(buttonListenerDel);
         }
 
         add(searchRepairButton, c);
     }
 
-    public class ButtonListener implements ActionListener {
+    public class ButtonListenerModify implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            container.removeAll();
-            container.setLayout(new BorderLayout());
-            container.add(new RepairSheetPanel(false, loginID), BorderLayout.CENTER);
-            container.repaint();
-            employeeWindow.setVisible(true);
+        public void actionPerformed(ActionEvent event) {
+            try {
+                if (Objects.equals(repairText.getText(), "")) {
+                    throw new JTextFieldEmptyException("ID fiche réparation");
+                }
+
+                ApplicationController applicationController = new ApplicationController();
+                ArrayList<String> infosRepairSheet = new ArrayList<String>();
+
+                int idRepairSheet = Integer.parseInt(repairText.getText());
+                infosRepairSheet = applicationController.searchRepairSheet(idRepairSheet);
+
+                container.removeAll();
+                container.setLayout(new BorderLayout());
+                container.add(new RepairSheetPanel(false, loginID, infosRepairSheet), BorderLayout.CENTER);
+                container.repaint();
+                employeeWindow.setVisible(true);
+            } catch (JTextFieldEmptyException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public class ButtonListenerDel implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            try {
+                if (Objects.equals(repairText.getText(), "")) {
+                    throw new JTextFieldEmptyException("ID fiche réparation");
+                }
+
+                ApplicationController applicationController = new ApplicationController();
+
+                int idRepairSheet = Integer.parseInt(repairText.getText());
+
+                applicationController.delRepairSheet(idRepairSheet);
+            } catch (JTextFieldEmptyException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

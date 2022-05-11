@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class ApplicationController {
     private RegisterManager registerManager;
     private InfosManager infosManager;
+    private RepairSheetManager repairSheetManager;
 
     public ApplicationController() {
         setRegisterManager(new RegisterManager());
@@ -45,7 +46,22 @@ public class ApplicationController {
     }
 
     public void addRepairSheet(ArrayList<Register> repairSheetInfos, int idEmployee, boolean isUrgent) {
-        RepairSheetManager repairSheetManager = new RepairSheetManager();
-        repairSheetManager.addRepairSheet(repairSheetInfos, idEmployee, isUrgent);
+        this.repairSheetManager = new RepairSheetManager();
+        this.repairSheetManager.addRepairSheet(repairSheetInfos, idEmployee, isUrgent);
+    }
+
+    public ArrayList<String> searchRepairSheet(int idRepairSheet) {
+        this.repairSheetManager = new RepairSheetManager();
+        return this.repairSheetManager.searchRepairSheetInfos(idRepairSheet);
+    }
+
+    public void modifyRepairSheet(ArrayList<Register> repairInfosModify, int idEmployee, boolean isUrgent) {
+        this.repairSheetManager = new RepairSheetManager();
+        this.repairSheetManager.modifyRepairSheet(repairInfosModify, idEmployee, isUrgent);
+    }
+
+    public void delRepairSheet(int idRepairSheet) {
+        this.repairSheetManager = new RepairSheetManager();
+        this.repairSheetManager.delRepairSheet(idRepairSheet);
     }
 }

@@ -147,7 +147,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new RepairSheetPanel(true, loginID), BorderLayout.CENTER);
+            mainContent.add(new RepairSheetPanel(true, loginID, null), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
