@@ -84,7 +84,7 @@ public class ResearchRepairPanel extends JPanel {
 
                 container.removeAll();
                 container.setLayout(new BorderLayout());
-                container.add(new RepairSheetPanel(false, loginID, infosRepairSheet), BorderLayout.CENTER);
+                container.add(new RepairSheetPanel(false, loginID, infosRepairSheet, employeeWindow, container), BorderLayout.CENTER);
                 container.repaint();
                 employeeWindow.setVisible(true);
             } catch (JTextFieldEmptyException e) {

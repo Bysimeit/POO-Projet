@@ -26,9 +26,11 @@ public class RepairSheetPanel extends JPanel {
     private String stationNameSelected;
     private Register loginID;
     private ArrayList<String> infosRepairSheet;
+    private Container container;
+    private EmployeeWindow employee;
 
 
-    public RepairSheetPanel(boolean createForAdd, Register loginID, ArrayList<String> infosRepairSheet) {
+    public RepairSheetPanel(boolean createForAdd, Register loginID, ArrayList<String> infosRepairSheet, EmployeeWindow employeeWindow, Container container) {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -36,6 +38,8 @@ public class RepairSheetPanel extends JPanel {
         this.createForAdd = createForAdd;
         this.loginID = loginID;
         this.infosRepairSheet = infosRepairSheet;
+        this.employee = employeeWindow;
+        this.container = container;
 
         idLabel = new JLabel("Identifiant de la fiche de réparation : ");
         idLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -161,17 +165,18 @@ public class RepairSheetPanel extends JPanel {
         informationLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(informationLabel, c);
 
-        backButton = new JButton("  Retour ");
-        c.gridx = 0;
-        c.gridy = 7;
-        c.insets = new Insets(0, 0 ,0, 0);
-        add(backButton, c);
-
         if(createForAdd) {
             modifyButton = new JButton("Créer");
             ButtonListenerAdd buttonListenerAdd = new ButtonListenerAdd();
             modifyButton.addActionListener(buttonListenerAdd);
+
         } else {
+            backButton = new JButton("  Retour ");
+            c.gridx = 0;
+            c.gridy = 7;
+            c.insets = new Insets(0, 0 ,0, 0);
+            add(backButton, c);
+
             idText.setText(infosRepairSheet.get(0));
             earlyDateText.setText(infosRepairSheet.get(1));
             if (!infosRepairSheet.get(2).equals("null")) {
@@ -183,6 +188,9 @@ public class RepairSheetPanel extends JPanel {
             ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
             modifyButton.addActionListener(buttonListenerModify);
         }
+
+        ButtonListenerBack buttonListenerBack = new ButtonListenerBack();
+        backButton.addActionListener(buttonListenerBack);
 
         c.gridx = 1;
         c.gridy = 7;
@@ -223,6 +231,18 @@ public class RepairSheetPanel extends JPanel {
                     stationNameSelected = "";
                     break;
             }
+        }
+    }
+
+    public class ButtonListenerBack implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            container.removeAll();
+            container.setLayout(new BorderLayout());
+            container.add(new ResearchRepairPanel(container, employee, false, null), BorderLayout.CENTER);
+            container.repaint();
+            employee.setVisible(true);
         }
     }
 
