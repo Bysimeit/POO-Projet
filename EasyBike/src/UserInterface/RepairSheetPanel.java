@@ -187,10 +187,9 @@ public class RepairSheetPanel extends JPanel {
             modifyButton = new JButton("Modifier");
             ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
             modifyButton.addActionListener(buttonListenerModify);
+            ButtonListenerBack buttonListenerBack = new ButtonListenerBack();
+            backButton.addActionListener(buttonListenerBack);
         }
-
-        ButtonListenerBack buttonListenerBack = new ButtonListenerBack();
-        backButton.addActionListener(buttonListenerBack);
 
         c.gridx = 1;
         c.gridy = 7;
@@ -235,12 +234,11 @@ public class RepairSheetPanel extends JPanel {
     }
 
     public class ButtonListenerBack implements ActionListener{
-
         @Override
         public void actionPerformed(ActionEvent e) {
             container.removeAll();
             container.setLayout(new BorderLayout());
-            container.add(new ResearchRepairPanel(container, employee, false, null), BorderLayout.CENTER);
+            container.add(new ResearchRepairPanel(container, employee, false, loginID), BorderLayout.CENTER);
             container.repaint();
             employee.setVisible(true);
         }
