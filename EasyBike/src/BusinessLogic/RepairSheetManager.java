@@ -3,6 +3,7 @@ package BusinessLogic;
 import Controller.RepairSheetDataAccess;
 import DataAccess.RepairSheetDBAccess;
 import Model.Register;
+import Model.Repair;
 import UserInterface.RepairSheetPanel;
 
 import java.util.ArrayList;
@@ -19,42 +20,16 @@ public class RepairSheetManager {
         this.repairSheetDataAccess = newRepairSheetDBAccess;
     }
 
-    public void addRepairSheet(ArrayList<Register> repairSheetInfos, int idEmployee, boolean isUrgent) {
-        this.repairInfos = repairSheetInfos;
-        String[] relayInfos = new String[5];
-
-        String remark = "";
-        String transmittingStation = "";
-        int i = 0;
-        for (Register repairInfo : this.repairInfos) {
-            if (i == 3) remark = repairInfo.getInsert();
-            if (i == 4) transmittingStation = repairInfo.getInsert();
-            relayInfos[i] = repairInfo.getTextField();
-            i++;
-        }
-
-        repairSheetDataAccess.addRepairSheet(relayInfos[0], idEmployee, relayInfos[1], relayInfos[2], isUrgent, remark, transmittingStation);
+    public void addRepairSheet(Repair newRepair) {
+        repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getStation());
     }
 
     public ArrayList<String> searchRepairSheetInfos(int idRepairSheet) {
         return repairSheetDataAccess.searchSheetInfos(idRepairSheet);
     }
 
-    public void modifyRepairSheet(ArrayList<Register> repairSheetInfos, int idEmployee, boolean isUrgent) {
-        this.repairInfos = repairSheetInfos;
-        String[] relayInfos = new String[5];
-
-        String remark = "";
-        String transmittingStation = "";
-        int i = 0;
-        for (Register repairInfo : this.repairInfos) {
-            if (i == 3) remark = repairInfo.getInsert();
-            if (i == 4) transmittingStation = repairInfo.getInsert();
-            relayInfos[i] = repairInfo.getTextField();
-            i++;
-        }
-
-        repairSheetDataAccess.modifyRepairSheet(relayInfos[0], idEmployee, relayInfos[1], relayInfos[2], isUrgent, remark, transmittingStation);
+    public void modifyRepairSheet(Repair modifyRepair) {
+        repairSheetDataAccess.modifyRepairSheet(modifyRepair.getId(), modifyRepair.getEmployeeId(), modifyRepair.getDate(), modifyRepair.getFinishDate(), modifyRepair.getIsUrgent(), modifyRepair.getRemark(), modifyRepair.getStation());
     }
 
     public void delRepairSheet(int idRepairSheet) {

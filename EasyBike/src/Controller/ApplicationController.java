@@ -6,6 +6,7 @@ import BusinessLogic.RegisterManager;
 import BusinessLogic.RepairSheetManager;
 import Model.Register;
 import Exception.AddRegisterException;
+import Model.Repair;
 
 import java.util.ArrayList;
 
@@ -45,9 +46,9 @@ public class ApplicationController {
         return infosManager.searchResponsibleInfo(responsible);
     }
 
-    public void addRepairSheet(ArrayList<Register> repairSheetInfos, int idEmployee, boolean isUrgent) {
+    public void addRepairSheet(Repair newRepair) {
         this.repairSheetManager = new RepairSheetManager();
-        this.repairSheetManager.addRepairSheet(repairSheetInfos, idEmployee, isUrgent);
+        this.repairSheetManager.addRepairSheet(newRepair);
     }
 
     public ArrayList<String> searchRepairSheet(int idRepairSheet) {
@@ -55,9 +56,9 @@ public class ApplicationController {
         return this.repairSheetManager.searchRepairSheetInfos(idRepairSheet);
     }
 
-    public void modifyRepairSheet(ArrayList<Register> repairInfosModify, int idEmployee, boolean isUrgent) {
+    public void modifyRepairSheet(Repair modifyRepair) {
         this.repairSheetManager = new RepairSheetManager();
-        this.repairSheetManager.modifyRepairSheet(repairInfosModify, idEmployee, isUrgent);
+        this.repairSheetManager.modifyRepairSheet(modifyRepair);
     }
 
     public void delRepairSheet(int idRepairSheet) {

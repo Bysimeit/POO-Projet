@@ -17,28 +17,20 @@ import java.util.Objects;
 public class RepairSheetDBAccess implements RepairSheetDataAccess {
     private Connection singletonConnection;
 
-    public void addRepairSheet(String id, int idEmployee, String startDate, String endDate, boolean isUrgent, String remark, String transmittingStation) {
+    public void addRepairSheet(int id, int idEmployee, java.sql.Date startDate, java.sql.Date endDate, boolean isUrgent, String remark, String transmittingStation) {
         singletonConnection = SingletonConnection.getInstance();
 
         String insertRepair = "INSERT INTO repair (id, employee, date, repairfinishdate, isurgent, remark, transmittingstation) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(insertRepair);
-            preparedStatement.setInt(1, Integer.parseInt(id));
+            preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, idEmployee);
 
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            Date date1 = format.parse(startDate);
-            GregorianCalendar dateToSend1 = new GregorianCalendar();
-            dateToSend1.setTime(date1);
-            preparedStatement.setDate(3, new java.sql.Date(dateToSend1.getTimeInMillis()));
+            preparedStatement.setDate(3, startDate);
 
-            if (!endDate.equals("")) {
-                format = new SimpleDateFormat("dd-MM-yyyy");
-                Date date2 = format.parse(endDate);
-                GregorianCalendar dateToSend2 = new GregorianCalendar();
-                dateToSend2.setTime(date2);
-                preparedStatement.setDate(4, new java.sql.Date(dateToSend2.getTimeInMillis()));
+            if (!(endDate == null)) {
+                preparedStatement.setDate(4, endDate);
             } else {
                 preparedStatement.setNull(4, Types.INTEGER);
             }
@@ -61,7 +53,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
             System.out.println(nbLine + " line changed successfully ! New repair order added !");
 
             preparedStatement.close();
-        } catch (SQLException | ParseException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
@@ -116,7 +108,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
         return result;
     }
 
-    public void modifyRepairSheet(String id, int idEmployee, String startDate, String endDate, boolean isUrgent, String remark, String transmittingStation) {
+    public void modifyRepairSheet(int id, int idEmployee, java.sql.Date startDate, java.sql.Date endDate, boolean isUrgent, String remark, String transmittingStation) {
         singletonConnection = SingletonConnection.getInstance();
 
         String modifyRepair = "UPDATE repair SET employee = ?, date = ?, repairfinishdate = ?, isurgent = ?, remark = ?, transmittingstation = ? WHERE id = " + id;
@@ -124,19 +116,10 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
         try {
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(modifyRepair);
             preparedStatement.setInt(1, idEmployee);
+            preparedStatement.setDate(2, startDate);
 
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            Date date1 = format.parse(startDate);
-            GregorianCalendar dateToSend1 = new GregorianCalendar();
-            dateToSend1.setTime(date1);
-            preparedStatement.setDate(2, new java.sql.Date(dateToSend1.getTimeInMillis()));
-
-            if (!endDate.equals("")) {
-                format = new SimpleDateFormat("dd-MM-yyyy");
-                Date date2 = format.parse(endDate);
-                GregorianCalendar dateToSend2 = new GregorianCalendar();
-                dateToSend2.setTime(date2);
-                preparedStatement.setDate(3, new java.sql.Date(dateToSend2.getTimeInMillis()));
+            if (!(endDate == null)) {
+                preparedStatement.setDate(3, endDate);
             } else {
                 preparedStatement.setNull(3, Types.INTEGER);
             }
@@ -159,7 +142,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
             System.out.println(nbLine + " line changed successfully ! Repair order modified !");
 
             preparedStatement.close();
-        } catch (SQLException | ParseException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }

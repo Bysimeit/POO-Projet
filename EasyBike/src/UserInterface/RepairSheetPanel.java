@@ -5,14 +5,20 @@ import Model.Register;
 
 import Exception.JTextFieldException;
 import Exception.JTextFieldEmptyException;
+import Model.Repair;
 
+import javax.imageio.ImageReadParam;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class RepairSheetPanel extends JPanel {
@@ -246,40 +252,43 @@ public class RepairSheetPanel extends JPanel {
 
     public class ButtonListenerAdd implements ActionListener {
         private ApplicationController controller = new ApplicationController();
+
         @Override
         public void actionPerformed(ActionEvent event) {
-            ArrayList<Register> repairInfos = new ArrayList<Register>();
-
             try {
-                if (!Objects.equals(idText.getText(), "")) {
-                    Register jIdText = new Register(idText);
-                    repairInfos.add(jIdText);
-                } else {
+                if (Objects.equals(idText.getText(), "")) {
                     throw new JTextFieldEmptyException("Identifiant fiche");
                 }
 
-                if (!Objects.equals(earlyDateText.getText(), "")) {
-                    Register jEarlyDateText = new Register(earlyDateText);
-                    repairInfos.add(jEarlyDateText);
-                } else {
+                if (Objects.equals(earlyDateText.getText(), "")) {
                     throw new JTextFieldEmptyException("Date début réparation");
                 }
 
-                Register jEndDateText = new Register(endDateText);
-                repairInfos.add(jEndDateText);
-
-                Register jRemarkArea = new Register(remarkArea.getText());
-                repairInfos.add(jRemarkArea);
-
-                Register jStationNameSelected = new Register(stationNameSelected);
-                repairInfos.add(jStationNameSelected);
-
                 ArrayList<String> result = controller.searchEmployeeInfo(loginID);
                 String stringIdEmployee = result.get(4);
-                int intIdEmployee = Integer.parseInt(stringIdEmployee);
 
-                controller.addRepairSheet(repairInfos, intIdEmployee, isUrgent);
-            } catch (JTextFieldException | JTextFieldEmptyException e) {
+                Integer idRepair = Integer.parseInt(idText.getText());
+                Integer idEmployee = Integer.parseInt(stringIdEmployee);
+
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                Date date1 = format.parse(earlyDateText.getText());
+                GregorianCalendar dateToConvert1 = new GregorianCalendar();
+                dateToConvert1.setTime(date1);
+                java.sql.Date startDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
+
+                java.sql.Date endDateSQL = null;
+                if (!endDateText.getText().equals("")) {
+                    format = new SimpleDateFormat("dd-MM-yyyy");
+                    Date date2 = format.parse(earlyDateText.getText());
+                    GregorianCalendar dateToConvert2 = new GregorianCalendar();
+                    dateToConvert1.setTime(date1);
+                    endDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
+                }
+
+                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), stationNameSelected);
+
+                controller.addRepairSheet(repair);
+            } catch (ParseException | JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -289,38 +298,40 @@ public class RepairSheetPanel extends JPanel {
         private ApplicationController controller = new ApplicationController();
         @Override
         public void actionPerformed(ActionEvent event) {
-            ArrayList<Register> repairInfos = new ArrayList<Register>();
-
             try {
-                if (!Objects.equals(idText.getText(), "")) {
-                    Register jIdText = new Register(idText);
-                    repairInfos.add(jIdText);
-                } else {
+                if (Objects.equals(idText.getText(), "")) {
                     throw new JTextFieldEmptyException("Identifiant fiche");
                 }
 
-                if (!Objects.equals(earlyDateText.getText(), "")) {
-                    Register jEarlyDateText = new Register(earlyDateText);
-                    repairInfos.add(jEarlyDateText);
-                } else {
+                if (Objects.equals(earlyDateText.getText(), "")) {
                     throw new JTextFieldEmptyException("Date début réparation");
                 }
 
-                Register jEndDateText = new Register(endDateText);
-                repairInfos.add(jEndDateText);
-
-                Register jRemarkArea = new Register(remarkArea.getText());
-                repairInfos.add(jRemarkArea);
-
-                Register jStationNameSelected = new Register(stationNameSelected);
-                repairInfos.add(jStationNameSelected);
-
                 ArrayList<String> result = controller.searchEmployeeInfo(loginID);
                 String stringIdEmployee = result.get(4);
-                int intIdEmployee = Integer.parseInt(stringIdEmployee);
 
-                controller.modifyRepairSheet(repairInfos, intIdEmployee, isUrgent);
-            } catch (JTextFieldException | JTextFieldEmptyException e) {
+                Integer idRepair = Integer.parseInt(idText.getText());
+                Integer idEmployee = Integer.parseInt(stringIdEmployee);
+
+                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                Date date1 = format.parse(earlyDateText.getText());
+                GregorianCalendar dateToConvert1 = new GregorianCalendar();
+                dateToConvert1.setTime(date1);
+                java.sql.Date startDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
+
+                java.sql.Date endDateSQL = null;
+                if (!endDateText.getText().equals("")) {
+                    format = new SimpleDateFormat("dd-MM-yyyy");
+                    Date date2 = format.parse(earlyDateText.getText());
+                    GregorianCalendar dateToConvert2 = new GregorianCalendar();
+                    dateToConvert1.setTime(date1);
+                    endDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
+                }
+
+                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), stationNameSelected);
+
+                controller.modifyRepairSheet(repair);
+            } catch (ParseException | JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
