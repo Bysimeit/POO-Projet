@@ -12,10 +12,9 @@ import java.awt.event.WindowEvent;
 public class EmployeeWindow extends JFrame{
     private JMenuBar menuBar;
     private JMenu CRUDMenu, dashboardMenu, researchMenu;
-    private JMenuItem profileItem, disconnectItem, modifyItem, deleteItem, addItem, research1Item, research2Item, research3Item;
+    private JMenuItem profileItem, disconnectItem, modifyItem, deleteItem, addItem, listItem, research1Item, research2Item, research3Item;
     private Container mainContent;
     private DashboardPanel dashboardPanel;
-    private ResearchRepairPanel researchRepairPanel;
     private JFrame loginWindow;
     private Register loginID;
 
@@ -61,6 +60,9 @@ public class EmployeeWindow extends JFrame{
 
         addItem = new JMenuItem("Ajouter");
         CRUDMenu.add(addItem);
+
+        listItem = new JMenuItem("Lister");
+        CRUDMenu.add(listItem);
 
         research1Item = new JMenuItem("Recherche 1");
         researchMenu.add(research1Item);
