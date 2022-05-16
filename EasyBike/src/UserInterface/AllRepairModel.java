@@ -10,14 +10,19 @@ public class AllRepairModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<Repair> contents;
 
-    public AllRepairModel(ArrayList<Repair> repairs){
+    public AllRepairModel(ArrayList<Repair> repairs) {
         columnNames = new ArrayList<>();
         columnNames.add("Id");
-        columnNames.add("date début");
-        columnNames.add("date fin");
-        columnNames.add("urgent");
-        columnNames.add("remarque");
+        columnNames.add("Date début");
+        columnNames.add("Date fin");
+        columnNames.add("Urgent");
+        columnNames.add("Remarque");
         columnNames.add("Station");
+        setContents(repairs);
+    }
+
+    public void setContents(ArrayList<Repair> contents) {
+        this.contents = contents;
     }
 
     @Override

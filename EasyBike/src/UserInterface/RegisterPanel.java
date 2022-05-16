@@ -332,15 +332,8 @@ public class RegisterPanel extends JPanel {
                 Register jSignatureText = new Register(signatureText.getText());
                 registerInfos.add(jSignatureText);
 
-                try {
-                    controller.addRegister(registerInfos);
-                } catch (AddRegisterException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-                }
-
-            } catch (JTextFieldException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            } catch (JTextFieldEmptyException e) {
+                controller.addRegister(registerInfos);
+            } catch (JTextFieldException | AddRegisterException | JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }

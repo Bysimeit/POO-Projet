@@ -18,6 +18,7 @@ public class ApplicationController {
     public ApplicationController() {
         setRegisterManager(new RegisterManager());
         setInfosManager(new InfosManager());
+        setRepairSheetManager(new RepairSheetManager());
     }
 
     public void setRegisterManager(RegisterManager newManager) {
@@ -26,6 +27,10 @@ public class ApplicationController {
 
     public void setInfosManager(InfosManager newInfosManager) {
         this.infosManager = newInfosManager;
+    }
+
+    public void setRepairSheetManager(RepairSheetManager repairSheetManager) {
+        this.repairSheetManager = repairSheetManager;
     }
 
     public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
@@ -47,22 +52,22 @@ public class ApplicationController {
     }
 
     public void addRepairSheet(Repair newRepair) {
-        this.repairSheetManager = new RepairSheetManager();
         this.repairSheetManager.addRepairSheet(newRepair);
     }
 
     public ArrayList<String> searchRepairSheet(int idRepairSheet) {
-        this.repairSheetManager = new RepairSheetManager();
         return this.repairSheetManager.searchRepairSheetInfos(idRepairSheet);
     }
 
     public void modifyRepairSheet(Repair modifyRepair) {
-        this.repairSheetManager = new RepairSheetManager();
         this.repairSheetManager.modifyRepairSheet(modifyRepair);
     }
 
     public void delRepairSheet(int idRepairSheet) {
-        this.repairSheetManager = new RepairSheetManager();
         this.repairSheetManager.delRepairSheet(idRepairSheet);
+    }
+
+    public ArrayList<Repair> selectAllRepair() {
+        return this.repairSheetManager.selectAllRepair();
     }
 }

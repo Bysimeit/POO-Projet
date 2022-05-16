@@ -35,4 +35,8 @@ public class RepairSheetManager {
     public void delRepairSheet(int idRepairSheet) {
         repairSheetDataAccess.delRepairSheet(idRepairSheet);
     }
+
+    public ArrayList<Repair> selectAllRepair() {
+        return repairSheetDataAccess.selectAllRepair();
+    }
 }

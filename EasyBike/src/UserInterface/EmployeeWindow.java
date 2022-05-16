@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Model.Register;
+import Model.Repair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class EmployeeWindow extends JFrame{
     private JMenuBar menuBar;
@@ -79,6 +81,7 @@ public class EmployeeWindow extends JFrame{
         modifyItem.addActionListener(new ModifyListener());
         deleteItem.addActionListener(new DeleteListener());
         addItem.addActionListener(new AddListener());
+        listItem.addActionListener(new ListListener());
         research1Item.addActionListener(new Research1Listener());
         research2Item.addActionListener(new Research2Listener());
         research3Item.addActionListener(new Research3Listener());
@@ -150,6 +153,17 @@ public class EmployeeWindow extends JFrame{
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
             mainContent.add(new RepairSheetPanel(true, loginID, null, EmployeeWindow.this, mainContent), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);
+        }
+    }
+
+    public class ListListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new ListAllRepair(mainContent));
             mainContent.repaint();
             setVisible(true);
         }

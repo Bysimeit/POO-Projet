@@ -2,6 +2,7 @@ package DataAccess;
 
 import Controller.RepairSheetDataAccess;
 import Model.Register;
+import Model.Repair;
 
 import javax.swing.*;
 import java.lang.reflect.Type;
@@ -163,5 +164,29 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
+    }
+
+    public ArrayList<Repair> selectAllRepair() {
+        ArrayList<Repair> result = new ArrayList<Repair>();
+        singletonConnection = SingletonConnection.getInstance();
+
+        String query = "SELECT * FROM repair";
+
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            while (data.next()) {
+                Repair repair = new Repair(data.getInt("id"), data.getInt("employee"), data.getDate("date"), data.getDate("repairfinishdate"), data.getBoolean("isurgent"), data.getString("remark"), data.getString("transmittingstation"));
+                result.add(repair);
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 }
