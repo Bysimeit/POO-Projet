@@ -18,7 +18,6 @@ public class AllRepairModel extends AbstractTableModel {
         columnNames.add("urgent");
         columnNames.add("remarque");
         columnNames.add("Station");
-        suce mes couiml
     }
 
     @Override
