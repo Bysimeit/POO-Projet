@@ -10,7 +10,7 @@ public class AllRepairModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<Repair> contents;
 
-    public AllRepairModel(){
+    public AllRepairModel(ArrayList<Repair> repairs){
         columnNames = new ArrayList<>();
         columnNames.add("Id");
         columnNames.add("date début");
@@ -18,6 +18,7 @@ public class AllRepairModel extends AbstractTableModel {
         columnNames.add("urgent");
         columnNames.add("remarque");
         columnNames.add("Station");
+        suce mes couiml
     }
 
     @Override
