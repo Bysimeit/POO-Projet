@@ -26,6 +26,7 @@ public class RegisterManager {
         int i = 0;
         for (Register registerInfo : this.registerInfos) {
             relayInfos[i] = registerInfo.getTextField();
+            if (i == 11) relayInfos[i] = registerInfo.getInsert();
             i++;
         }
 

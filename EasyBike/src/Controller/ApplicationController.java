@@ -4,9 +4,11 @@ import BusinessLogic.InfosManager;
 import BusinessLogic.LoginManager;
 import BusinessLogic.RegisterManager;
 import BusinessLogic.RepairSheetManager;
+import Model.Locality;
 import Model.Register;
 import Exception.AddRegisterException;
 import Model.Repair;
+import Model.ResearchInfos1;
 
 import java.util.ArrayList;
 
@@ -69,5 +71,13 @@ public class ApplicationController {
 
     public ArrayList<Repair> selectAllRepair() {
         return this.repairSheetManager.selectAllRepair();
+    }
+
+    public ArrayList<Locality> pickAllLocality() {
+        return this.infosManager.pickAllLocality();
+    }
+
+    public ArrayList<ResearchInfos1> selectResearchInfos1(int idLocality) {
+        return this.infosManager.selectResearchInfos1(idLocality);
     }
 }

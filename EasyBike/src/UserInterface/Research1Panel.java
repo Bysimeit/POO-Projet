@@ -1,7 +1,14 @@
 package UserInterface;
 
+import Controller.ApplicationController;
+import Model.Locality;
+import Model.ResearchInfos1;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 public class Research1Panel extends JPanel{
     private JComboBox localityCombo;
@@ -26,23 +33,39 @@ public class Research1Panel extends JPanel{
         localityLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         c.gridx = 0;
         c.gridy = 1;
-        c.gridwidth = 1;
+        c.gridwidth = 2;
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 150, 0);
         c.weighty = 1;
         add(localityLabel, c);
 
-        String[] values = {"à remplir","a remplir","a remplir","a remplir"};
-        localityCombo = new JComboBox(values);
-        localityCombo.setSelectedItem("à remplir");
+        ApplicationController controller = new ApplicationController();
+        ArrayList<Locality> localities = controller.pickAllLocality();
+        String[] locality = new String[2901];
+        for (int i = 0; i < 2901; i++) {
+            locality[i] = localities.get(i).getPostalCode() + " " + localities.get(i).getName();
+        }
+
+        localityCombo = new JComboBox(locality);
+        //localityCombo.setSelectedItem("à remplir");
         localityCombo.setMaximumRowCount(10);
-        c.gridx = 1;
-        c.gridy = 1;
+        c.gridx = 0;
+        c.gridy = 2;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 150, 0);
-        c.weighty = 1;
+        c.weighty = 0;
+        ComboBoxListener listener = new ComboBoxListener();
+        localityCombo.addItemListener(listener);
         add(localityCombo, c);
+    }
 
+    private class ComboBoxListener implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            System.out.println(localityCombo.getSelectedIndex() + 1);
+            ApplicationController controller = new ApplicationController();
+            ArrayList<ResearchInfos1> result = controller.selectResearchInfos1(localityCombo.getSelectedIndex() + 1);
+            System.out.println(result.get(0).getName());
+        }
     }
 }

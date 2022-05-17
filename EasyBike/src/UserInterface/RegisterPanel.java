@@ -237,7 +237,7 @@ public class RegisterPanel extends JPanel {
         c.gridx = 1;
         c.gridy = 13;
         c.insets = new Insets(0, 0 ,20, 0);
-        ButtonListener registerListener = new ButtonListener(this.nameText, this.firstNameText, this.birthdayText, this.emailText, this.passwordText, this.phoneText, this.GSMText, this.streetText, this.postalCodeText, this.numberStreetText, this.signatureText);
+        ButtonListener registerListener = new ButtonListener();
         registerButton.addActionListener(registerListener);
         add(registerButton, c);
     }
@@ -253,9 +253,6 @@ public class RegisterPanel extends JPanel {
     // Action click on Register Button
     private class ButtonListener implements ActionListener {
         private ApplicationController controller = new ApplicationController();
-        public ButtonListener (JTextField nameText, JTextField firstNameText, JTextField birthdayText, JTextField emailText, JTextField passwordText, JTextField phoneText, JTextField GSMText, JTextField streetText, JTextField postalCodeText, JTextField numberStreetText, JTextField signatureText) {
-
-        }
         public void actionPerformed(ActionEvent event) {
             ArrayList<Register> registerInfos = new ArrayList<Register>();
 
@@ -338,5 +335,4 @@ public class RegisterPanel extends JPanel {
             }
         }
     }
-
 }

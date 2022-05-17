@@ -29,9 +29,9 @@ public class LoginManager {
 
         boolean isConnected;
         if (isMember) {
-            isConnected = memberDBAccess.loginConnection(eMail, password);
+            isConnected = this.memberDBAccess.loginConnection(eMail, password);
         } else {
-            isConnected = employeeDBAccess.loginConnection(eMail, password);
+            isConnected = this.employeeDBAccess.loginConnection(eMail, password);
         }
 
         return isConnected;

@@ -21,22 +21,22 @@ public class RepairSheetManager {
     }
 
     public void addRepairSheet(Repair newRepair) {
-        repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getStation());
+        this.repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getStation());
     }
 
     public ArrayList<String> searchRepairSheetInfos(int idRepairSheet) {
-        return repairSheetDataAccess.searchSheetInfos(idRepairSheet);
+        return this.repairSheetDataAccess.searchSheetInfos(idRepairSheet);
     }
 
     public void modifyRepairSheet(Repair modifyRepair) {
-        repairSheetDataAccess.modifyRepairSheet(modifyRepair.getId(), modifyRepair.getEmployeeId(), modifyRepair.getDate(), modifyRepair.getFinishDate(), modifyRepair.getIsUrgent(), modifyRepair.getRemark(), modifyRepair.getStation());
+        this.repairSheetDataAccess.modifyRepairSheet(modifyRepair.getId(), modifyRepair.getEmployeeId(), modifyRepair.getDate(), modifyRepair.getFinishDate(), modifyRepair.getIsUrgent(), modifyRepair.getRemark(), modifyRepair.getStation());
     }
 
     public void delRepairSheet(int idRepairSheet) {
-        repairSheetDataAccess.delRepairSheet(idRepairSheet);
+        this.repairSheetDataAccess.delRepairSheet(idRepairSheet);
     }
 
     public ArrayList<Repair> selectAllRepair() {
-        return repairSheetDataAccess.selectAllRepair();
+        return this.repairSheetDataAccess.selectAllRepair();
     }
 }

@@ -2,14 +2,19 @@ package DataAccess;
 
 import Controller.MemberDataAccess;
 import Exception.LoginConnectionException;
+import Model.Locality;
 import Model.Register;
+import Model.Repair;
+import Model.ResearchInfos1;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -88,9 +93,10 @@ public class MemberDBAccess implements MemberDataAccess {
             nbLinesChanged = preparedStatement.executeUpdate();
             System.out.println(nbLinesChanged + " line changed successfully !");
 
-            singletonConnection.close();
+            preparedStatement.close();
 
             System.out.println("New member added successfully to the DB !");
+            JOptionPane.showMessageDialog(null, "Inscription enregistrée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException | NoSuchAlgorithmException | ParseException e) {
             throw new RuntimeException(e);
         }
@@ -122,5 +128,57 @@ public class MemberDBAccess implements MemberDataAccess {
         }
 
         return true;
+    }
+
+    public ArrayList<Locality> pickAllLocality() {
+        ArrayList<Locality> result = new ArrayList<Locality>();
+
+        try {
+            singletonConnection = SingletonConnection.getInstance();
+
+            String query = "SELECT * FROM locality";
+
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            while (data.next()) {
+                result.add(new Locality(data.getInt(1), data.getInt(2), data.getString(3)));
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+
+        return result;
+    }
+
+    public ArrayList<ResearchInfos1> selectResearchInfos1(int idLocality) {
+        ArrayList<ResearchInfos1> result = new ArrayList<ResearchInfos1>();
+
+        try {
+            singletonConnection = SingletonConnection.getInstance();
+
+            String query1 = "SELECT m.nationalnumber, m.firstname, m.name, a.street, a.housenumber FROM member m JOIN address a ON (m.location = a.id) WHERE location = ANY (SELECT id FROM EasyBike.address WHERE locality = " + idLocality + ")";
+
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
+            ResultSet data = preparedStatement.executeQuery();
+
+            while (data.next()) {
+                String query2 = "SELECT c.customernumber, s.price FROM card c JOIN subscription s ON (c.correspondence = s.id) WHERE c.member = " + data.getInt(1) + ")";
+                System.out.println(data.getInt(1));
+                preparedStatement = singletonConnection.prepareStatement(query2);
+                ResultSet cardData = preparedStatement.executeQuery();
+                System.out.println(cardData.getInt(1));
+
+                result.add(new ResearchInfos1(data.getInt(1), data.getString(2), data.getString(3), data.getString(4), data.getInt(5), cardData.getInt(1), cardData.getDouble(2)));
+            }
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+
+        return result;
     }
 }
