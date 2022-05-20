@@ -7,7 +7,7 @@ public class Research3Panel extends JPanel {
     private JSpinner dateSpinner;
     private JLabel dateLabel;
     private JSpinner.DateEditor dateEditor;
-    private JButton researchBouton;
+    private JButton researchButton;
 
     public Research3Panel(){
         GridBagLayout layout = new GridBagLayout();
@@ -45,13 +45,13 @@ public class Research3Panel extends JPanel {
         c.weighty = 1;
         add(dateSpinner, c);
 
-        researchBouton = new JButton("Recherche");
+        researchButton = new JButton("Recherche");
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 0, 0);
         c.weighty = 1;
-        add(researchBouton, c);
+        add(researchButton, c);
     }
 }

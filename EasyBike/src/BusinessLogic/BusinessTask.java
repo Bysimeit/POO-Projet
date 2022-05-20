@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class BusinessTask {
     private Date startDate, finishDate;
-    private Integer nbSubscritpionsInOrder;
+    private Integer firstNbSubscriptionsOrder, secondNbSubscriptionsOrder;
 
     public BusinessTask(Date startDate, Date finishDate){
         this.startDate = startDate;

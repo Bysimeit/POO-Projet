@@ -7,7 +7,7 @@ public class ResearchInfos1 {
     private String street;
     private Integer houseNumber;
     private Integer customerNumber;
-    private double price;
+    private Double price;
 
     public ResearchInfos1(Integer nationalNumber, String firstName, String name, String street, Integer houseNumber, Integer customerNumber, double price) {
         setNationalNumber(nationalNumber);

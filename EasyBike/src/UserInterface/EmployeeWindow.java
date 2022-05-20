@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class EmployeeWindow extends JFrame{
     private JMenuBar menuBar;
-    private JMenu CRUDMenu, dashboardMenu, researchMenu;
-    private JMenuItem profileItem, disconnectItem, modifyItem, deleteItem, addItem, listItem, research1Item, research2Item, research3Item;
+    private JMenu CRUDMenu, dashboardMenu, researchMenu, businessTaskMenu;
+    private JMenuItem profileItem, disconnectItem, modifyItem, deleteItem, addItem, listItem, research1Item, research2Item, research3Item, businessTaskItem;
     private Container mainContent;
     private DashboardPanel dashboardPanel;
     private JFrame loginWindow;
@@ -22,7 +22,7 @@ public class EmployeeWindow extends JFrame{
 
     public EmployeeWindow(JFrame loginWindow, Register loginID){
         super("Employé");
-        setBounds(100,100,450,450);
+        setBounds(100,100,650,550);
 
         //close with X logo
         addWindowListener(new WindowAdapter() {
@@ -47,6 +47,9 @@ public class EmployeeWindow extends JFrame{
 
         researchMenu = new JMenu("Recherches");
         menuBar.add(researchMenu);
+
+        businessTaskMenu = new JMenu("Tâche métier");
+        menuBar.add(businessTaskMenu);
 
         profileItem = new JMenuItem("Profil");
         dashboardMenu.add(profileItem);
@@ -75,6 +78,9 @@ public class EmployeeWindow extends JFrame{
         research3Item = new JMenuItem("Recherche 3");
         researchMenu.add(research3Item);
 
+        businessTaskItem = new JMenuItem("Abonnements en cours");
+        businessTaskMenu.add(businessTaskItem);
+
         //create events JMenuItems
         profileItem.addActionListener(new ProfileListener());
         disconnectItem.addActionListener(new DisconnectListener());
@@ -85,6 +91,7 @@ public class EmployeeWindow extends JFrame{
         research1Item.addActionListener(new Research1Listener());
         research2Item.addActionListener(new Research2Listener());
         research3Item.addActionListener(new Research3Listener());
+        businessTaskItem.addActionListener(new BusinessTaskListener());
 
         this.setJMenuBar(menuBar);
 
@@ -207,4 +214,15 @@ public class EmployeeWindow extends JFrame{
         }
     }
 
+    //event businessTaskItem
+    public class BusinessTaskListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mainContent.removeAll();
+            mainContent.setLayout(new BorderLayout());
+            mainContent.add(new BusinessTaskPanel(), BorderLayout.CENTER);
+            mainContent.repaint();
+            setVisible(true);
+        }
+    }
 }
