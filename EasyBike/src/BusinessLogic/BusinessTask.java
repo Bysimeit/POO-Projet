@@ -7,13 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class BusinessTask {
-    private Date startDate, finishDate;
-    private ArrayList<Integer> nbSubscriptionsIsOrder;
     private MemberDBAccess memberDBAccess;
 
-    public BusinessTask(Date startDate, Date finishDate){
-        this.startDate = startDate;
-        this.finishDate = finishDate;
+    public BusinessTask(){
         setMemberDBAccess(new MemberDBAccess());
     }
 
@@ -21,7 +17,7 @@ public class BusinessTask {
         this.memberDBAccess = memberDBAccess;
     }
 
-    public ArrayList<Integer> researchNbSubsriptionInOrder(){
+    public ArrayList<Integer> researchNbSubsriptionInOrder(Date startDate, Date finishDate){
         return memberDBAccess.selectNbSoucriptionsInOrder(startDate, finishDate);
     }
 

@@ -21,6 +21,7 @@ public class ApplicationController {
         setRegisterManager(new RegisterManager());
         setInfosManager(new InfosManager());
         setRepairSheetManager(new RepairSheetManager());
+        setBusinessTask(new BusinessTask());
     }
 
     public void setRegisterManager(RegisterManager newManager) {
@@ -39,7 +40,7 @@ public class ApplicationController {
         this.businessTask = businessTask;
     }
 
-    public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
+    public void addRegister(Register registerInfos) throws AddRegisterException {
         registerManager.addRegister(registerInfos);
     }
 
@@ -86,7 +87,6 @@ public class ApplicationController {
     }
 
     public ArrayList<Integer> nbSubsritpionsInOrder(Date date1, Date date2){
-        setBusinessTask(new BusinessTask(date1,date2));
-        return this.businessTask.researchNbSubsriptionInOrder();
+        return this.businessTask.researchNbSubsriptionInOrder(date1,date2);
     }
 }

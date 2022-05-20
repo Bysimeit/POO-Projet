@@ -25,8 +25,6 @@ public class MemberDBAccess implements MemberDataAccess {
     public void setMemberRegister(String nameText, String firstNameText, String birthdayText, String nationalNumberText, String emailText, String passwordText, String phoneText, String GSMText, String streetText, String numberStreetText, String postalCodeText, String signatureText) {
         singletonConnection = SingletonConnection.getInstance();
 
-        streetText = streetText.replaceAll(" ", "_").toLowerCase();
-
         String searchLocality = "SELECT id FROM locality WHERE postalcode = " + postalCodeText;
         String insertAddress = "INSERT INTO address (locality, street, housenumber) VALUES (?, ?, ?)";
         String searchIdLocation = "SELECT id FROM address WHERE street = \"" + streetText + "\"";
@@ -74,17 +72,17 @@ public class MemberDBAccess implements MemberDataAccess {
 
             preparedStatement.setNull(8, Types.INTEGER);
 
-            if (phoneText == null) {
+            if (Objects.equals(phoneText, "")) {
                 preparedStatement.setNull(9, Types.INTEGER);
             } else {
                 preparedStatement.setInt(9, Integer.parseInt(phoneText));
             }
-            if (GSMText == null) {
+            if (Objects.equals(GSMText, "")) {
                 preparedStatement.setNull(10, Types.INTEGER);
             } else {
                 preparedStatement.setInt(10, Integer.parseInt(GSMText));
             }
-            if (signatureText == null) {
+            if (Objects.equals(signatureText, "")) {
                 preparedStatement.setNull(11, Types.INTEGER);
             } else {
                 preparedStatement.setString(11, signatureText);
@@ -159,19 +157,13 @@ public class MemberDBAccess implements MemberDataAccess {
         try {
             singletonConnection = SingletonConnection.getInstance();
 
-            String query1 = "SELECT m.nationalnumber, m.firstname, m.name, a.street, a.housenumber FROM member m JOIN address a ON (m.location = a.id) WHERE location = ANY (SELECT id FROM EasyBike.address WHERE locality = " + idLocality + ")";
+            String query1 = "SELECT m.nationalnumber, m.firstname, m.name, a.street, a.housenumber, c.customernumber, s.price FROM member m JOIN address a ON (m.location = a.id) JOIN card c ON (m.nationalnumber = c.member) JOIN subscription s ON (c.correspondence = s.id) WHERE m.location = ANY (SELECT id FROM EasyBike.address WHERE locality = " + idLocality + ")";
 
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
             ResultSet data = preparedStatement.executeQuery();
 
             while (data.next()) {
-                String query2 = "SELECT c.customernumber, s.price FROM card c JOIN subscription s ON (c.correspondence = s.id) WHERE c.member = " + data.getInt(1) + ")";
-                System.out.println(data.getInt(1));
-                preparedStatement = singletonConnection.prepareStatement(query2);
-                ResultSet cardData = preparedStatement.executeQuery();
-                System.out.println(cardData.getInt(1));
-
-                result.add(new ResearchInfos1(data.getInt(1), data.getString(2), data.getString(3), data.getString(4), data.getInt(5), cardData.getInt(1), cardData.getDouble(2)));
+                result.add(new ResearchInfos1(data.getInt(1), data.getString(2), data.getString(3), data.getString(4), data.getInt(5), data.getInt(6), data.getDouble(7)));
             }
 
             preparedStatement.close();

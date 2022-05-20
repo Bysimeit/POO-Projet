@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Research1Panel extends JPanel{
     private JComboBox localityCombo;
@@ -58,14 +59,20 @@ public class Research1Panel extends JPanel{
         ComboBoxListener listener = new ComboBoxListener();
         localityCombo.addItemListener(listener);
         add(localityCombo, c);
+        setVisible(true);
     }
 
     private class ComboBoxListener implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
-            System.out.println(localityCombo.getSelectedIndex() + 1);
             ApplicationController controller = new ApplicationController();
             ArrayList<ResearchInfos1> result = controller.selectResearchInfos1(localityCombo.getSelectedIndex() + 1);
-            System.out.println(result.get(0).getName());
+            if (!Objects.equals(result.get(0).getName(), null)) {
+                removeAll();
+                setLayout(new BorderLayout());
+                add(new ListResearch1(result));
+                repaint();
+                setVisible(true);
+            }
         }
     }
 }

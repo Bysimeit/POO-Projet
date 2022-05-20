@@ -15,7 +15,7 @@ public class SelectedMemberResearch extends AbstractTableModel {
         columnNames.add("ID National");
         columnNames.add("Prénom");
         columnNames.add("Nom");
-        columnNames.add("Nom rue");
+        columnNames.add("Nom de la rue");
         columnNames.add("N° rue");
         columnNames.add("N° carte");
         columnNames.add("Prix abonnement");

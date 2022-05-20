@@ -170,7 +170,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new ListAllRepair(mainContent));
+            mainContent.add(new ListAllRepair());
             mainContent.repaint();
             setVisible(true);
         }

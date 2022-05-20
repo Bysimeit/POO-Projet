@@ -152,9 +152,7 @@ public class BusinessTaskPanel extends JPanel{
 
             //changer l'exception par la suite
             try {
-                nbSubscriptionsInOrder = new ArrayList<Integer>();
-                nbSubscriptionsInOrder = controller.nbSubsritpionsInOrder((Date)startDateSpinner.getValue(),(Date)finishDateSpinner.getValue());
-
+                ArrayList<Integer> nbSubscriptionsInOrder = controller.nbSubsritpionsInOrder((Date)startDateSpinner.getValue(),(Date)finishDateSpinner.getValue());
 
                 container.removeAll();
                 container.setLayout(new BorderLayout());

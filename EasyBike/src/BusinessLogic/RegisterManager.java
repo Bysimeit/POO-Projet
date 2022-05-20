@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class RegisterManager {
     private MemberDataAccess memberDBAccess;
-    private ArrayList<Register> registerInfos;
+    private ArrayList<String> registerInfos;
 
     public RegisterManager() {
         setMemberDataAccess(new MemberDBAccess());
@@ -19,17 +19,9 @@ public class RegisterManager {
         this.memberDBAccess = newMemberDBAccess;
     }
 
-    public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
-        this.registerInfos = registerInfos;
-        String[] relayInfos = new String[12];
+    public void addRegister(Register newRegisterInfos) throws AddRegisterException {
+        this.registerInfos = newRegisterInfos.getStringList();
 
-        int i = 0;
-        for (Register registerInfo : this.registerInfos) {
-            relayInfos[i] = registerInfo.getTextField();
-            if (i == 11) relayInfos[i] = registerInfo.getInsert();
-            i++;
-        }
-
-        memberDBAccess.setMemberRegister(relayInfos[0], relayInfos[1], relayInfos[2], relayInfos[3], relayInfos[4], relayInfos[5], relayInfos[6], relayInfos[7], relayInfos[8], relayInfos[9], relayInfos[10], relayInfos[11]);
+        memberDBAccess.setMemberRegister(registerInfos.get(0), registerInfos.get(1), registerInfos.get(2), registerInfos.get(3), registerInfos.get(4), registerInfos.get(5), registerInfos.get(6), registerInfos.get(7), registerInfos.get(8), registerInfos.get(9), registerInfos.get(10), registerInfos.get(11));
     }
 }
