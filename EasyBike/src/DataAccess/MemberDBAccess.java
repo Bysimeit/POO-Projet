@@ -181,4 +181,34 @@ public class MemberDBAccess implements MemberDataAccess {
 
         return result;
     }
+
+    public ArrayList<Integer> selectNbSoucriptionsInOrder(Date date1, Date date2){
+        ArrayList<Integer> nbSubscriptionsInOrder = new ArrayList<Integer>();
+
+        //voir si on fait une boucle pour regrouper les deux requêtes
+        try {
+            singletonConnection = SingletonConnection.getInstance();
+
+            String query1 = "SELECT COUNT(r.suscription) FROM repetition r WHERE r.isorder is not null AND r.startdate = " + date1;
+
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
+            ResultSetMetaData data = preparedStatement.getMetaData();
+            System.out.println(data.getColumnCount());
+            nbSubscriptionsInOrder.add(data.getColumnCount());
+
+
+            String query2 = "SELECT COUNT(r.suscription) FROM repetition r WHERE r.isorder is not null AND r.startdate = " + date2;
+
+            preparedStatement = singletonConnection.prepareStatement(query2);
+            data = preparedStatement.getMetaData();
+            System.out.println(data.getColumnCount());
+            nbSubscriptionsInOrder.add(data.getColumnCount());
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+
+        return nbSubscriptionsInOrder;
+    }
 }

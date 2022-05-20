@@ -1,9 +1,13 @@
 package UserInterface;
 
+import Controller.ApplicationController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
 
 public class BusinessTaskPanel extends JPanel{
     private JSpinner startDateSpinner, finishDateSpinner;
@@ -11,12 +15,18 @@ public class BusinessTaskPanel extends JPanel{
     private JLabel startDateLabel, finishDateLabel, firstNbSubscriptionsOrderLabel, secondNbSubscriptionsOrderLabel, discountLabel;
     private JButton researchButton, discountButton;
     private JTextField discountText;
+    private ArrayList<Integer> nbSubscriptionsInOrder;
+    private JFrame employeeWindow;
+    private Container container;
 
 
-    public BusinessTaskPanel(){
+    public BusinessTaskPanel(Container container, JFrame employeeWindow, Boolean isResearch){
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
+
+        this.employeeWindow = employeeWindow;
+        this.container = container;
 
         startDateLabel = new JLabel("Entrez la date de début de la recherche : ");
         startDateLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -71,7 +81,11 @@ public class BusinessTaskPanel extends JPanel{
         ResearchButtonListener researchButtonListener = new ResearchButtonListener();
         researchButton.addActionListener(researchButtonListener);
 
-        firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : ...");
+        if (isResearch){
+            firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : " + nbSubscriptionsInOrder.get(1));
+        }else {
+            firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : ...");
+        }
         firstNbSubscriptionsOrderLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         c.gridx = 0;
         c.gridy = 4;
@@ -81,7 +95,11 @@ public class BusinessTaskPanel extends JPanel{
         c.weighty = 1;
         add(firstNbSubscriptionsOrderLabel, c);
 
-        secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : ...");
+        if (isResearch){
+            secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : " + nbSubscriptionsInOrder.get(2));
+        }else {
+            secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : ...");
+        }
         secondNbSubscriptionsOrderLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         c.gridx = 0;
         c.gridy = 5;
@@ -114,6 +132,11 @@ public class BusinessTaskPanel extends JPanel{
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 0, 0);
         c.weighty = 1;
+        if (isResearch){
+            discountButton.setEnabled(true);
+        }else {
+            discountButton.setEnabled(false);
+        }
         add(discountButton, c);
         DiscountButtonListener discountButtonListener = new DiscountButtonListener();
         discountButton.addActionListener(discountButtonListener);
@@ -122,9 +145,25 @@ public class BusinessTaskPanel extends JPanel{
     }
 
     public class ResearchButtonListener implements ActionListener{
+        private ApplicationController controller = new ApplicationController();
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            //changer l'exception par la suite
+            try {
+                nbSubscriptionsInOrder = new ArrayList<Integer>();
+                nbSubscriptionsInOrder = controller.nbSubsritpionsInOrder((Date)startDateSpinner.getValue(),(Date)finishDateSpinner.getValue());
+
+
+                container.removeAll();
+                container.setLayout(new BorderLayout());
+                container.add(new BusinessTaskPanel(container,employeeWindow, true), BorderLayout.CENTER);
+                container.repaint();
+                employeeWindow.setVisible(true);
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
+            }
 
         }
     }

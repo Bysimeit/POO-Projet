@@ -1,21 +1,21 @@
 package Controller;
 
-import BusinessLogic.InfosManager;
-import BusinessLogic.LoginManager;
-import BusinessLogic.RegisterManager;
-import BusinessLogic.RepairSheetManager;
+import BusinessLogic.*;
 import Model.Locality;
 import Model.Register;
 import Exception.AddRegisterException;
 import Model.Repair;
 import Model.ResearchInfos1;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class ApplicationController {
     private RegisterManager registerManager;
     private InfosManager infosManager;
     private RepairSheetManager repairSheetManager;
+    private BusinessTask businessTask;
 
     public ApplicationController() {
         setRegisterManager(new RegisterManager());
@@ -33,6 +33,10 @@ public class ApplicationController {
 
     public void setRepairSheetManager(RepairSheetManager repairSheetManager) {
         this.repairSheetManager = repairSheetManager;
+    }
+
+    public void setBusinessTask(BusinessTask businessTask){
+        this.businessTask = businessTask;
     }
 
     public void addRegister(ArrayList<Register> registerInfos) throws AddRegisterException {
@@ -79,5 +83,10 @@ public class ApplicationController {
 
     public ArrayList<ResearchInfos1> selectResearchInfos1(int idLocality) {
         return this.infosManager.selectResearchInfos1(idLocality);
+    }
+
+    public ArrayList<Integer> nbSubsritpionsInOrder(Date date1, Date date2){
+        setBusinessTask(new BusinessTask(date1,date2));
+        return this.businessTask.researchNbSubsriptionInOrder();
     }
 }

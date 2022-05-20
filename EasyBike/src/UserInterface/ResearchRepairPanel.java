@@ -50,20 +50,16 @@ public class ResearchRepairPanel extends JPanel {
 
         if (createForDestroy) {
             searchRepairButton = new JButton("Supprimer");
+            ButtonListenerDel buttonListenerDel = new ButtonListenerDel();
+            searchRepairButton.addActionListener(buttonListenerDel);
         } else {
             searchRepairButton = new JButton("Rechercher");
+            ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
+            searchRepairButton.addActionListener(buttonListenerModify);
         }
         c.gridx = 1;
         c.gridy = 1;
         c.insets = new Insets(0, 0 ,70, 0);
-
-        if (!createForDestroy) {
-            ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
-            searchRepairButton.addActionListener(buttonListenerModify);
-        } else {
-            ButtonListenerDel buttonListenerDel = new ButtonListenerDel();
-            searchRepairButton.addActionListener(buttonListenerDel);
-        }
 
         add(searchRepairButton, c);
     }

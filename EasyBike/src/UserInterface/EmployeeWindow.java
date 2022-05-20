@@ -220,7 +220,7 @@ public class EmployeeWindow extends JFrame{
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
             mainContent.setLayout(new BorderLayout());
-            mainContent.add(new BusinessTaskPanel(), BorderLayout.CENTER);
+            mainContent.add(new BusinessTaskPanel(mainContent, EmployeeWindow.this, false), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
