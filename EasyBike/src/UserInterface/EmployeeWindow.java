@@ -111,7 +111,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(dashboardPanel, BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -134,7 +133,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, false, loginID), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -146,7 +144,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new ResearchRepairPanel(mainContent, EmployeeWindow.this, true, loginID), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -158,7 +155,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new RepairSheetPanel(true, loginID, null, EmployeeWindow.this, mainContent), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -169,7 +165,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new ListAllRepair());
             mainContent.repaint();
             setVisible(true);
@@ -183,8 +178,7 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
-            mainContent.add(new Research1Panel(), BorderLayout.CENTER);
+            mainContent.add(new Research1Panel(mainContent), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }
@@ -195,7 +189,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new Research2Panel(), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -207,7 +200,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new Research3Panel(), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
@@ -219,7 +211,6 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.setLayout(new BorderLayout());
             mainContent.add(new BusinessTaskPanel(mainContent, EmployeeWindow.this, false), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);

@@ -14,8 +14,10 @@ import java.util.Objects;
 public class Research1Panel extends JPanel{
     private JComboBox localityCombo;
     private JLabel localityLabel, nationalNumberLabel, firstNameLabel, nameLabel, streetLabel, houseNumberLabel, customerNumberLabel, priceLabel;
+    private Container mainContainer;
 
-    public Research1Panel(){
+    public Research1Panel(Container mainContainer){
+        this.mainContainer = mainContainer;
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -67,11 +69,11 @@ public class Research1Panel extends JPanel{
             ApplicationController controller = new ApplicationController();
             ArrayList<ResearchInfos1> result = controller.selectResearchInfos1(localityCombo.getSelectedIndex() + 1);
             if (!Objects.equals(result.get(0).getName(), null)) {
-                removeAll();
-                setLayout(new BorderLayout());
-                add(new ListResearch1(result));
-                repaint();
-                setVisible(true);
+                mainContainer.removeAll();
+                mainContainer.setLayout(new BorderLayout());
+                mainContainer.add(new ListResearch1(result));
+                mainContainer.revalidate();
+                mainContainer.repaint();
             }
         }
     }
