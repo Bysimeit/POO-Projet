@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class BusinessTaskPanel extends JPanel{
@@ -20,7 +20,7 @@ public class BusinessTaskPanel extends JPanel{
     private Container container;
 
 
-    public BusinessTaskPanel(Container container, JFrame employeeWindow, Boolean isResearch){
+    public BusinessTaskPanel(Container container, JFrame employeeWindow, Boolean isResearch, ArrayList<Integer> nbSubscriptionsInOrder){
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -82,7 +82,7 @@ public class BusinessTaskPanel extends JPanel{
         researchButton.addActionListener(researchButtonListener);
 
         if (isResearch){
-            firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : " + nbSubscriptionsInOrder.get(1));
+            firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : " + nbSubscriptionsInOrder.get(0));
         }else {
             firstNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la première date : ...");
         }
@@ -96,7 +96,7 @@ public class BusinessTaskPanel extends JPanel{
         add(firstNbSubscriptionsOrderLabel, c);
 
         if (isResearch){
-            secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : " + nbSubscriptionsInOrder.get(2));
+            secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : " + nbSubscriptionsInOrder.get(1));
         }else {
             secondNbSubscriptionsOrderLabel = new JLabel("Nombre d'abonnements en ordre à la seconde date : ...");
         }
@@ -152,11 +152,10 @@ public class BusinessTaskPanel extends JPanel{
 
             //changer l'exception par la suite
             try {
-                ArrayList<Integer> nbSubscriptionsInOrder = controller.nbSubsritpionsInOrder((Date)startDateSpinner.getValue(),(Date)finishDateSpinner.getValue());
-
+                nbSubscriptionsInOrder = controller.nbSubsritpionsInOrder((Date)startDateSpinner.getValue(),(Date)finishDateSpinner.getValue());
                 container.removeAll();
                 container.setLayout(new BorderLayout());
-                container.add(new BusinessTaskPanel(container,employeeWindow, true), BorderLayout.CENTER);
+                container.add(new BusinessTaskPanel(container,employeeWindow, true, nbSubscriptionsInOrder), BorderLayout.CENTER);
                 container.repaint();
                 employeeWindow.setVisible(true);
             } catch (Exception exception) {

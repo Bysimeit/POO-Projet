@@ -211,7 +211,7 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.add(new BusinessTaskPanel(mainContent, EmployeeWindow.this, false), BorderLayout.CENTER);
+            mainContent.add(new BusinessTaskPanel(mainContent, EmployeeWindow.this, false, null), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

@@ -177,21 +177,25 @@ public class MemberDBAccess implements MemberDataAccess {
         //voir si on fait une boucle pour regrouper les deux requêtes
         try {
             singletonConnection = SingletonConnection.getInstance();
+            java.sql.Date date1Sql = new java.sql.Date(date1.getTime());
+            java.sql.Date date2Sql = new java.sql.Date(date2.getTime());
 
-            String query1 = "SELECT COUNT(r.suscription) FROM repetition r WHERE r.isorder is not null AND r.startdate = " + date1;
+            String query1 = "SELECT COUNT(subscription) FROM repetition WHERE isorder = 1 AND startdate = \" " + date1Sql + " \"";
 
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
-            ResultSetMetaData data = preparedStatement.getMetaData();
-            System.out.println(data.getColumnCount());
-            nbSubscriptionsInOrder.add(data.getColumnCount());
+            ResultSet data = preparedStatement.executeQuery();
+            data.next();
+            System.out.println(data.getInt(1));
+            nbSubscriptionsInOrder.add(data.getInt(1));
 
 
-            String query2 = "SELECT COUNT(r.suscription) FROM repetition r WHERE r.isorder is not null AND r.startdate = " + date2;
+            String query2 = "SELECT COUNT(subscription) FROM repetition WHERE isorder = 1 AND startdate = \" " + date2Sql + "\"";
 
             preparedStatement = singletonConnection.prepareStatement(query2);
-            data = preparedStatement.getMetaData();
-            System.out.println(data.getColumnCount());
-            nbSubscriptionsInOrder.add(data.getColumnCount());
+            data = preparedStatement.executeQuery();
+            data.next();
+            System.out.println(data.getInt(1));
+            nbSubscriptionsInOrder.add(data.getInt(1));
 
             preparedStatement.close();
         } catch (SQLException e) {
