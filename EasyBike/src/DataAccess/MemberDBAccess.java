@@ -1,13 +1,10 @@
 package DataAccess;
 
-import Controller.MemberDataAccess;
+import Interfaces.MemberDataAccess;
 import Exception.LoginConnectionException;
 import Model.Locality;
-import Model.Register;
-import Model.Repair;
 import Model.ResearchInfos1;
 
-import javax.management.RuntimeErrorException;
 import javax.swing.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -174,7 +171,7 @@ public class MemberDBAccess implements MemberDataAccess {
         return result;
     }
 
-    public ArrayList<Integer> selectNbSoucriptionsInOrder(Date date1, Date date2){
+    public ArrayList<Integer> selectNbSoucriptionsInOrder(Date date1, Date date2) {
         ArrayList<Integer> nbSubscriptionsInOrder = new ArrayList<Integer>();
 
         //voir si on fait une boucle pour regrouper les deux requêtes

@@ -1,7 +1,8 @@
 package DataAccess;
 
-import Controller.EmployeeDataAccess;
+import Interfaces.EmployeeDataAccess;
 import Exception.LoginConnectionException;
+import Model.ResearchInfos2;
 
 import javax.swing.*;
 import java.security.MessageDigest;
@@ -104,6 +105,29 @@ public class EmployeeDBAccess implements EmployeeDataAccess {
             data.next();
             result.add(data.getString("name"));
             result.add(data.getString("firstname"));
+
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate) {
+        ArrayList<ResearchInfos2> result = new ArrayList<ResearchInfos2>();
+        singletonConnection = SingletonConnection.getInstance();
+
+        String query = "SELECT m.id, m.name, r.date, o.number, o.id FROM employee m JOIN repair r ON (m.id = r.employee) JOIN repairorder o ON (r.id = o.number) WHERE r.date BETWEEN \" " + startDate + " \" AND \" " + finishDate + " \";";
+
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            while (data.next()) {
+                ResearchInfos2 infoFound = new ResearchInfos2(data.getInt(1), data.getString(2), data.getDate(3), data.getInt(4), data.getInt(5));
+                result.add(infoFound);
+            }
 
             preparedStatement.close();
         } catch (SQLException e) {

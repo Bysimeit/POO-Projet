@@ -1,11 +1,8 @@
 package Controller;
 
 import BusinessLogic.*;
-import Model.Locality;
-import Model.Register;
+import Model.*;
 import Exception.AddRegisterException;
-import Model.Repair;
-import Model.ResearchInfos1;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -88,5 +85,13 @@ public class ApplicationController {
 
     public ArrayList<Integer> nbSubsritpionsInOrder(Date date1, Date date2){
         return this.businessTask.researchNbSubsriptionInOrder(date1,date2);
+    }
+
+    public ArrayList<Integer> pickAllBike() {
+        return this.repairSheetManager.pickAllBike();
+    }
+
+    public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate) {
+        return this.infosManager.selectResearchInfos2(startDate, finishDate);
     }
 }

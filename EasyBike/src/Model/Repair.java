@@ -9,9 +9,21 @@ public class Repair {
     private Date finishDate;
     private Boolean isUrgent;
     private String remark;
+    private Integer bikeNumber;
     private String station;
 
-    public Repair(Integer id, Integer employeeId, Date date, Date finishDate, Boolean isUrgent, String remark, String station){
+    public Repair(Integer id, Integer employeeId, Date date, Date finishDate, Boolean isUrgent, String remark, Integer bikeNumber, String station) {
+        setId(id);
+        setEmployeeId(employeeId);
+        setDate(date);
+        setFinishDate(finishDate);
+        setUrgent(isUrgent);
+        setRemark(remark);
+        setBikeNumber(bikeNumber);
+        setStation(station);
+    }
+
+    public Repair(Integer id, Integer employeeId, Date date, Date finishDate, Boolean isUrgent, String remark, String station) {
         setId(id);
         setEmployeeId(employeeId);
         setDate(date);
@@ -45,6 +57,10 @@ public class Repair {
         this.remark = remark;
     }
 
+    public void setBikeNumber(Integer bikeNumber) {
+        this.bikeNumber = bikeNumber;
+    }
+
     public void setStation(String station) {
         this.station = station;
     }
@@ -71,6 +87,10 @@ public class Repair {
 
     public String getRemark() {
         return remark;
+    }
+
+    public Integer getBikeNumber() {
+        return bikeNumber;
     }
 
     public String getStation() {

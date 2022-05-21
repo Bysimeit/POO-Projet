@@ -1,19 +1,19 @@
 package BusinessLogic;
 
+import Interfaces.MemberDataAccess;
 import DataAccess.MemberDBAccess;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class BusinessTask {
-    private MemberDBAccess memberDBAccess;
+    private MemberDataAccess memberDBAccess;
 
     public BusinessTask(){
-        setMemberDBAccess(new MemberDBAccess());
+        setMemberDataAccess(new MemberDBAccess());
     }
 
-    public void setMemberDBAccess(MemberDBAccess memberDBAccess) {
+    public void setMemberDataAccess(MemberDataAccess memberDBAccess) {
         this.memberDBAccess = memberDBAccess;
     }
 

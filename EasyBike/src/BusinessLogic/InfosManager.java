@@ -1,12 +1,13 @@
 package BusinessLogic;
 
-import Controller.EmployeeDataAccess;
-import Controller.MemberDataAccess;
+import Interfaces.EmployeeDataAccess;
+import Interfaces.MemberDataAccess;
 import DataAccess.EmployeeDBAccess;
 import DataAccess.MemberDBAccess;
 import Model.Locality;
 import Model.Register;
 import Model.ResearchInfos1;
+import Model.ResearchInfos2;
 
 import java.util.ArrayList;
 
@@ -43,5 +44,9 @@ public class InfosManager {
 
     public ArrayList<ResearchInfos1> selectResearchInfos1(int idLocality) {
         return this.memberDBAccess.selectResearchInfos1(idLocality);
+    }
+
+    public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate) {
+        return this.employeeDBAccess.selectResearchInfos2(startDate, finishDate);
     }
 }

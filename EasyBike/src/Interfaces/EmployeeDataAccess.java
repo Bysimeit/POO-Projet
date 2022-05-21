@@ -1,4 +1,6 @@
-package Controller;
+package Interfaces;
+
+import Model.ResearchInfos2;
 
 import java.util.ArrayList;
 
@@ -7,4 +9,5 @@ public interface EmployeeDataAccess {
     public boolean loginConnection(String eMail, String password);
     public ArrayList<String> getInfoEmployee(String eMail);
     public ArrayList<String> getResponsibleInfo(int responsibleID);
+    public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate);
 }

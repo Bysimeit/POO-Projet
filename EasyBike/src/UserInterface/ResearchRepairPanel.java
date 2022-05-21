@@ -73,7 +73,7 @@ public class ResearchRepairPanel extends JPanel {
                 }
 
                 ApplicationController applicationController = new ApplicationController();
-                ArrayList<String> infosRepairSheet = new ArrayList<String>();
+                ArrayList<String> infosRepairSheet;
 
                 int idRepairSheet = Integer.parseInt(repairText.getText());
                 infosRepairSheet = applicationController.searchRepairSheet(idRepairSheet);

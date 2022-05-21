@@ -69,13 +69,13 @@ public class EmployeeWindow extends JFrame{
         listItem = new JMenuItem("Lister");
         CRUDMenu.add(listItem);
 
-        research1Item = new JMenuItem("Recherche 1");
+        research1Item = new JMenuItem("Recherche abonnements membres");
         researchMenu.add(research1Item);
 
-        research2Item = new JMenuItem("Recherche 2");
+        research2Item = new JMenuItem("Recherche réparations entre deux dates");
         researchMenu.add(research2Item);
 
-        research3Item = new JMenuItem("Recherche 3");
+        research3Item = new JMenuItem("Recherche répétitions d'abonnements");
         researchMenu.add(research3Item);
 
         businessTaskItem = new JMenuItem("Abonnements en cours");
@@ -189,7 +189,7 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.add(new Research2Panel(), BorderLayout.CENTER);
+            mainContent.add(new Research2Panel(mainContent), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

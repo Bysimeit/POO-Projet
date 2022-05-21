@@ -50,7 +50,6 @@ public class Research1Panel extends JPanel{
         }
 
         localityCombo = new JComboBox(locality);
-        //localityCombo.setSelectedItem("à remplir");
         localityCombo.setMaximumRowCount(10);
         c.gridx = 0;
         c.gridy = 2;

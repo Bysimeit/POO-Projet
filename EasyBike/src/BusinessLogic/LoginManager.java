@@ -1,7 +1,7 @@
 package BusinessLogic;
 
-import Controller.EmployeeDataAccess;
-import Controller.MemberDataAccess;
+import Interfaces.EmployeeDataAccess;
+import Interfaces.MemberDataAccess;
 import DataAccess.EmployeeDBAccess;
 import DataAccess.MemberDBAccess;
 import Model.Register;

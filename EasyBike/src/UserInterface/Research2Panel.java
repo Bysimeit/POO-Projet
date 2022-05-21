@@ -1,16 +1,25 @@
 package UserInterface;
 
+import Controller.ApplicationController;
+import Model.ResearchInfos2;
+
 import javax.print.attribute.standard.JobPrioritySupported;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Research2Panel extends JPanel{
     private JSpinner startDateSpinner, finishDateSpinner;
     private JLabel startDateLabel, finishDateLabel;
     private JSpinner.DateEditor startDateEditor, finishDateEditor;
     private JButton researchButton;
+    private Container mainContainer;
 
-    public Research2Panel(){
+    public Research2Panel(Container mainContainer) {
+        this.mainContainer = mainContainer;
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -74,6 +83,24 @@ public class Research2Panel extends JPanel{
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 0, 0);
         c.weighty = 1;
+        ButtonListener buttonListener = new ButtonListener();
+        researchButton.addActionListener(buttonListener);
         add(researchButton, c);
+    }
+
+    public class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(startDateSpinner.getValue());
+            String finishDate = new SimpleDateFormat("yyyy-MM-dd").format(finishDateSpinner.getValue());
+            ApplicationController controller = new ApplicationController();
+            ArrayList<ResearchInfos2> result = controller.selectResearchInfos2(startDate, finishDate);
+
+            mainContainer.removeAll();
+            mainContainer.setLayout(new BorderLayout());
+            mainContainer.add(new ListResearch2(result));
+            mainContainer.revalidate();
+            mainContainer.repaint();
+        }
     }
 }

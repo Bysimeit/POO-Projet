@@ -1,16 +1,13 @@
 package BusinessLogic;
 
-import Controller.RepairSheetDataAccess;
+import Interfaces.RepairSheetDataAccess;
 import DataAccess.RepairSheetDBAccess;
-import Model.Register;
 import Model.Repair;
-import UserInterface.RepairSheetPanel;
 
 import java.util.ArrayList;
 
 public class RepairSheetManager {
     private RepairSheetDataAccess repairSheetDataAccess;
-    private ArrayList<Register> repairInfos;
 
     public RepairSheetManager() {
         setRepairSheetPanel(new RepairSheetDBAccess());
@@ -21,7 +18,7 @@ public class RepairSheetManager {
     }
 
     public void addRepairSheet(Repair newRepair) {
-        this.repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getStation());
+        this.repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getBikeNumber(), newRepair.getStation());
     }
 
     public ArrayList<String> searchRepairSheetInfos(int idRepairSheet) {
@@ -29,7 +26,7 @@ public class RepairSheetManager {
     }
 
     public void modifyRepairSheet(Repair modifyRepair) {
-        this.repairSheetDataAccess.modifyRepairSheet(modifyRepair.getId(), modifyRepair.getEmployeeId(), modifyRepair.getDate(), modifyRepair.getFinishDate(), modifyRepair.getIsUrgent(), modifyRepair.getRemark(), modifyRepair.getStation());
+        this.repairSheetDataAccess.modifyRepairSheet(modifyRepair.getId(), modifyRepair.getEmployeeId(), modifyRepair.getDate(), modifyRepair.getFinishDate(), modifyRepair.getIsUrgent(), modifyRepair.getRemark(), modifyRepair.getBikeNumber(), modifyRepair.getStation());
     }
 
     public void delRepairSheet(int idRepairSheet) {
@@ -38,5 +35,9 @@ public class RepairSheetManager {
 
     public ArrayList<Repair> selectAllRepair() {
         return this.repairSheetDataAccess.selectAllRepair();
+    }
+
+    public ArrayList<Integer> pickAllBike() {
+        return this.repairSheetDataAccess.getAllBikeNumber();
     }
 }

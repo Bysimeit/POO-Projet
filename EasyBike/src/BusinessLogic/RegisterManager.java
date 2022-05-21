@@ -1,6 +1,6 @@
 package BusinessLogic;
 
-import Controller.MemberDataAccess;
+import Interfaces.MemberDataAccess;
 import DataAccess.MemberDBAccess;
 import Model.Register;
 import Exception.AddRegisterException;

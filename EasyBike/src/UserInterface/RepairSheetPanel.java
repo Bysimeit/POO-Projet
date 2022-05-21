@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Controller.ApplicationController;
+import Model.Locality;
 import Model.Register;
 
 import Exception.JTextFieldException;
@@ -22,14 +23,15 @@ import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class RepairSheetPanel extends JPanel {
-    private JLabel idLabel, earlyDateLabel, endDateLabel, emergencyLabel, remarkLabel, stationLabel,informationLabel;
+    private JLabel idLabel, earlyDateLabel, endDateLabel, emergencyLabel, remarkLabel, numberBikeLabel, stationLabel,informationLabel;
     private JTextField idText, earlyDateText, endDateText;
-    private JComboBox stationList;
+    private JComboBox numberBikeList, stationList;
     private Checkbox isUrgentCheck;
     private JTextArea remarkArea;
     private JButton backButton, modifyButton;
     private boolean createForAdd, isUrgent;
     private String stationNameSelected;
+    private int bikeNumberSelected;
     private Register loginID;
     private ArrayList<String> infosRepairSheet;
     private Container container;
@@ -144,9 +146,35 @@ public class RepairSheetPanel extends JPanel {
         c.weighty = 1;
         add(new JScrollPane(remarkArea), c);
 
-        stationLabel = new JLabel("Station émétrice");
+        numberBikeLabel = new JLabel("Numéro du vélo :");
         c.gridx = 0;
         c.gridy = 5;
+        c.gridwidth = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        numberBikeLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        add(numberBikeLabel, c);
+
+        ApplicationController controller = new ApplicationController();
+        ArrayList<Integer> numbers = controller.pickAllBike();
+        String[] bikeNumber = new String[16];
+        bikeNumber[0] = "";
+        for (int i = 1; i <= 15; i++) {
+            bikeNumber[i] = "" + numbers.get(i - 1);
+        }
+
+        numberBikeList = new JComboBox(bikeNumber);
+        numberBikeList.setMaximumRowCount(4);
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridwidth = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        ListenerBikeNumberSelected listenerBikeNumberSelected = new ListenerBikeNumberSelected();
+        numberBikeList.addItemListener(listenerBikeNumberSelected);
+        add(new JScrollPane(numberBikeList), c);
+
+        stationLabel = new JLabel("Station émétrice");
+        c.gridx = 0;
+        c.gridy = 6;
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 0, 0);
         stationLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -156,7 +184,7 @@ public class RepairSheetPanel extends JPanel {
         stationList = new JComboBox(stationData);
         stationList.setMaximumRowCount(4);
         c.gridx = 1;
-        c.gridy = 5;
+        c.gridy = 6;
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 0, 0);
         ComboBoxListener comboBoxListener = new ComboBoxListener();
@@ -165,7 +193,7 @@ public class RepairSheetPanel extends JPanel {
 
         informationLabel = new JLabel("* sont des champs facultatifs");
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 7;
         c.gridwidth = 1;
         c.insets = new Insets(0, 0, 0, 0);
         informationLabel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -179,7 +207,7 @@ public class RepairSheetPanel extends JPanel {
         } else {
             backButton = new JButton("  Retour ");
             c.gridx = 0;
-            c.gridy = 7;
+            c.gridy = 8;
             c.insets = new Insets(0, 0 ,0, 0);
             add(backButton, c);
 
@@ -187,9 +215,10 @@ public class RepairSheetPanel extends JPanel {
             earlyDateText.setText(infosRepairSheet.get(1));
             if (!infosRepairSheet.get(2).equals("null")) {
                 endDateText.setText(infosRepairSheet.get(2));
+                remarkArea.setText(infosRepairSheet.get(4));
             }
-            remarkArea.setText(infosRepairSheet.get(4));
-            stationList.setSelectedItem(infosRepairSheet.get(5));
+            numberBikeList.setSelectedItem(infosRepairSheet.get(5));
+            stationList.setSelectedItem(infosRepairSheet.get(6));
             modifyButton = new JButton("Modifier");
             ButtonListenerModify buttonListenerModify = new ButtonListenerModify();
             modifyButton.addActionListener(buttonListenerModify);
@@ -198,7 +227,7 @@ public class RepairSheetPanel extends JPanel {
         }
 
         c.gridx = 1;
-        c.gridy = 7;
+        c.gridy = 8;
         c.insets = new Insets(0, 0 ,0, 0);
         add(modifyButton, c);
     }
@@ -233,9 +262,15 @@ public class RepairSheetPanel extends JPanel {
                     }
                     break;
                 default:
-                    stationNameSelected = "";
+                    stationNameSelected = null;
                     break;
             }
+        }
+    }
+
+    public class ListenerBikeNumberSelected implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            bikeNumberSelected = numberBikeList.getSelectedIndex();
         }
     }
 
@@ -285,7 +320,11 @@ public class RepairSheetPanel extends JPanel {
                     endDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
                 }
 
-                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), stationNameSelected);
+                if (bikeNumberSelected == 0) {
+                    throw new JTextFieldEmptyException("Numéro du vélo");
+                }
+
+                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), bikeNumberSelected, stationNameSelected);
 
                 controller.addRepairSheet(repair);
             } catch (ParseException | JTextFieldEmptyException e) {
@@ -328,7 +367,11 @@ public class RepairSheetPanel extends JPanel {
                     endDateSQL = new java.sql.Date(dateToConvert1.getTimeInMillis());
                 }
 
-                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), stationNameSelected);
+                if (bikeNumberSelected == 0) {
+                    throw new JTextFieldEmptyException("Numéro du vélo");
+                }
+
+                Repair repair = new Repair(idRepair, idEmployee, startDateSQL, endDateSQL, isUrgent, remarkArea.getText(), bikeNumberSelected, stationNameSelected);
 
                 controller.modifyRepairSheet(repair);
             } catch (ParseException | JTextFieldEmptyException e) {
