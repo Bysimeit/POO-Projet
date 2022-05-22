@@ -200,7 +200,7 @@ public class EmployeeWindow extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             mainContent.removeAll();
-            mainContent.add(new Research3Panel(), BorderLayout.CENTER);
+            mainContent.add(new Research3Panel(mainContent), BorderLayout.CENTER);
             mainContent.repaint();
             setVisible(true);
         }

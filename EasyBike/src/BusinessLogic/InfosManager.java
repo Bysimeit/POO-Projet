@@ -4,10 +4,7 @@ import Interfaces.EmployeeDataAccess;
 import Interfaces.MemberDataAccess;
 import DataAccess.EmployeeDBAccess;
 import DataAccess.MemberDBAccess;
-import Model.Locality;
-import Model.Register;
-import Model.ResearchInfos1;
-import Model.ResearchInfos2;
+import Model.*;
 
 import java.util.ArrayList;
 
@@ -48,5 +45,9 @@ public class InfosManager {
 
     public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate) {
         return this.employeeDBAccess.selectResearchInfos2(startDate, finishDate);
+    }
+
+    public ArrayList<ResearchInfos3> selectResearchInfos3(String startDate) {
+        return this.memberDBAccess.selectResearchInfos3(startDate);
     }
 }

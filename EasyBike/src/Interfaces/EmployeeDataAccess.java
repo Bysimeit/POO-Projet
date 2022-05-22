@@ -1,6 +1,7 @@
 package Interfaces;
 
 import Model.ResearchInfos2;
+import Model.ResearchInfos3;
 
 import java.util.ArrayList;
 

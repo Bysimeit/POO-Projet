@@ -5,6 +5,7 @@ import Model.Register;
 import Model.ResearchInfos1;
 
 import Exception.SubscriptionLocalityNotFoundException;
+import Model.ResearchInfos3;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,4 +17,5 @@ public interface MemberDataAccess {
     public ArrayList<ResearchInfos1> selectResearchInfos1(int nbLocality);
     public ArrayList<Integer> selectNbSoucriptionsInOrder(Date date1, Date date2);
     public void activateDiscount(Double discount);
+    public ArrayList<ResearchInfos3> selectResearchInfos3(String startDate);
 }

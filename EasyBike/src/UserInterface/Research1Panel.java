@@ -3,6 +3,7 @@ package UserInterface;
 import Controller.ApplicationController;
 import Model.Locality;
 import Model.ResearchInfos1;
+import Exception.SubscriptionLocalityNotFoundException;
 
 import javax.swing.*;
 import java.awt.*;

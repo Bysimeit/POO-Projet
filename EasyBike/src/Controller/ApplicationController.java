@@ -96,6 +96,10 @@ public class ApplicationController {
     }
 
     public void activateDiscount(Double discount){
-        businessTask.activateDiscount(discount);
+        this.businessTask.activateDiscount(discount);
+    }
+
+    public ArrayList<ResearchInfos3> selectResearchInfos3(String startDate) {
+        return this.infosManager.selectResearchInfos3(startDate);
     }
 }

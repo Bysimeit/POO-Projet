@@ -3,10 +3,11 @@ package Exception;
 import javax.swing.*;
 
 public class SubscriptionLocalityNotFoundException extends Exception {
-    public SubscriptionLocalityNotFoundException() {
-        JOptionPane.showMessageDialog(null, getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-    }
+    private String error;
 
+    public SubscriptionLocalityNotFoundException(String error) {
+        this.error = error;
+    }
     public String getMessage() {
         return "Pas d'abonnement actif dans cette localité !";
     }

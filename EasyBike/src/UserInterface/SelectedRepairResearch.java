@@ -1,6 +1,5 @@
 package UserInterface;
 
-import Model.ResearchInfos1;
 import Model.ResearchInfos2;
 
 import javax.swing.table.AbstractTableModel;

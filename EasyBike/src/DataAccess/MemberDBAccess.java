@@ -4,6 +4,7 @@ import Interfaces.MemberDataAccess;
 import Exception.LoginConnectionException;
 import Model.Locality;
 import Model.ResearchInfos1;
+import Model.ResearchInfos3;
 
 import javax.swing.*;
 import java.security.MessageDigest;
@@ -208,17 +209,36 @@ public class MemberDBAccess implements MemberDataAccess {
     public void activateDiscount(Double discount) {
         try {
             singletonConnection = SingletonConnection.getInstance();
-
-            System.out.println("avant" + discount);
             String query1 = "UPDATE subscription SET price = price - (price * " + discount + ")/100;";
-            System.out.println("après");
             PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
             preparedStatement.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Mise à jour effectuée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 
+            preparedStatement.close();
         }catch (SQLException e) {
             throw new RuntimeException();
         }
+    }
+
+    public ArrayList<ResearchInfos3> selectResearchInfos3(String startDate) {
+        ArrayList<ResearchInfos3> result = new ArrayList<ResearchInfos3>();
+        singletonConnection = SingletonConnection.getInstance();
+
+        String query = "SELECT r.startdate, r.ispaid, s.price, c.customernumber, m.name, m.firstname FROM repetition r JOIN subscription s ON (r.subscription = s.id) JOIN card c ON (c.correspondence = s.id) JOIN member m ON (m.nationalnumber = c.member) WHERE r.startDate >= \" " + startDate + " \";";
+
+        try {
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query);
+            ResultSet data = preparedStatement.executeQuery();
+
+            while (data.next()) {
+                ResearchInfos3 dataFound = new ResearchInfos3(data.getDate(1), data.getBoolean(2), data.getDouble(3), data.getInt(4), data.getString(5), data.getString(6));
+                result.add(dataFound);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 }

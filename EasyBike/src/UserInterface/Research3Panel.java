@@ -1,15 +1,25 @@
 package UserInterface;
 
+import Controller.ApplicationController;
+import Model.ResearchInfos2;
+import Model.ResearchInfos3;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Research3Panel extends JPanel {
     private JSpinner dateSpinner;
     private JLabel dateLabel;
     private JSpinner.DateEditor dateEditor;
     private JButton researchButton;
+    private Container mainContainer;
 
-    public Research3Panel(){
+    public Research3Panel(Container mainContainer) {
+        this.mainContainer = mainContainer;
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(layout);
@@ -52,6 +62,24 @@ public class Research3Panel extends JPanel {
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 0, 0, 0);
         c.weighty = 1;
+        ButtonListener buttonListener = new ButtonListener();
+        researchButton.addActionListener(buttonListener);
         add(researchButton, c);
+    }
+
+    public class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(dateSpinner.getValue());
+
+            ApplicationController controller = new ApplicationController();
+            ArrayList<ResearchInfos3> result = controller.selectResearchInfos3(startDate);
+
+            mainContainer.removeAll();
+            mainContainer.setLayout(new BorderLayout());
+            mainContainer.add(new ListResearch3(result));
+            mainContainer.revalidate();
+            mainContainer.repaint();
+        }
     }
 }
