@@ -21,4 +21,7 @@ public class BusinessTask {
         return memberDBAccess.selectNbSoucriptionsInOrder(startDate, finishDate);
     }
 
+    public void activateDiscount(Double discount){
+        memberDBAccess.activateDiscount(discount);
+    }
 }

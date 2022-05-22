@@ -15,4 +15,5 @@ public interface MemberDataAccess {
     public ArrayList<Locality> pickAllLocality();
     public ArrayList<ResearchInfos1> selectResearchInfos1(int nbLocality);
     public ArrayList<Integer> selectNbSoucriptionsInOrder(Date date1, Date date2);
+    public void activateDiscount(Double discount);
 }

@@ -94,4 +94,8 @@ public class ApplicationController {
     public ArrayList<ResearchInfos2> selectResearchInfos2(String startDate, String finishDate) {
         return this.infosManager.selectResearchInfos2(startDate, finishDate);
     }
+
+    public void activateDiscount(Double discount){
+        businessTask.activateDiscount(discount);
+    }
 }

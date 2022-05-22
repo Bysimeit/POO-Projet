@@ -6,8 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Objects;
+import Exception.JTextFieldEmptyException;
 
 public class BusinessTaskPanel extends JPanel{
     private JSpinner startDateSpinner, finishDateSpinner;
@@ -109,7 +112,7 @@ public class BusinessTaskPanel extends JPanel{
         c.weighty = 1;
         add(secondNbSubscriptionsOrderLabel, c);
 
-        discountLabel = new JLabel("Montant de la réduction à appliquer : ");
+        discountLabel = new JLabel("Montant de la réduction à appliquer (en pourcentage) : ");
         discountLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         c.gridx = 0;
         c.gridy = 6;
@@ -166,10 +169,29 @@ public class BusinessTaskPanel extends JPanel{
     }
 
     public class DiscountButtonListener implements ActionListener{
+        private Double discount;
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            ApplicationController controller = new ApplicationController();
 
+            try {
+                if (Objects.equals(discountText.getText(), "")) {
+                    throw new JTextFieldEmptyException("Identifiant fiche");
+                }
+
+                discount = Double.parseDouble(discountText.getText());
+                if (discount <= 0) {
+                    //lancer erreur de pourcenetage invalide
+                }
+
+                controller.activateDiscount(discount);
+
+                System.out.println(discountText.getText());
+
+            }catch (JTextFieldEmptyException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

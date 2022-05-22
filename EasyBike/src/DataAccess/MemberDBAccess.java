@@ -204,4 +204,21 @@ public class MemberDBAccess implements MemberDataAccess {
 
         return nbSubscriptionsInOrder;
     }
+
+    public void activateDiscount(Double discount) {
+        try {
+            singletonConnection = SingletonConnection.getInstance();
+
+            System.out.println("avant" + discount);
+            String query1 = "UPDATE subscription SET price = price - (price * " + discount + ")/100;";
+            System.out.println("après");
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(query1);
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Mise à jour effectuée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
 }
