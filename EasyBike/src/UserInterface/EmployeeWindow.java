@@ -19,6 +19,7 @@ public class EmployeeWindow extends JFrame{
     private DashboardPanel dashboardPanel;
     private JFrame loginWindow;
     private Register loginID;
+    private BikeGif bike;
 
     public EmployeeWindow(JFrame loginWindow, Register loginID){
         super("Employé");
@@ -35,6 +36,10 @@ public class EmployeeWindow extends JFrame{
         this.loginWindow = loginWindow;
         this.loginID = loginID;
         dashboardPanel = new DashboardPanel(this, loginWindow, loginID);
+        bike = new BikeGif();
+        bike.setBackground(Color.gray);
+        ThreadMoveBike threadMoveBike = new ThreadMoveBike(bike);
+        threadMoveBike.start();
 
         //create menu
         menuBar = new JMenuBar();
@@ -99,6 +104,7 @@ public class EmployeeWindow extends JFrame{
         //create content
         mainContent = this.getContentPane();
         mainContent.setLayout(new BorderLayout());
+        mainContent.add(bike, BorderLayout.NORTH);
         mainContent.add(dashboardPanel, BorderLayout.CENTER);
 
         setVisible(true);
