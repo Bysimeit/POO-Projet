@@ -97,24 +97,10 @@ public class RepairSheetPanel extends JPanel {
         endDateLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(endDateLabel, c);
 
-        if (infosRepairSheet == null || !infosRepairSheet.get(2).equals("null")) {
-            finishDate = true;
-        }
-        haveFinishDate = new Checkbox("", finishDate);
-        c.gridx = 1;
-        c.gridy = 2;
-        c.gridwidth = 1;
-        c.anchor = GridBagConstraints.WEST;
-        c.insets = new Insets(0, 0, 0, 0);
-        c.weighty = 1;
-        CheckBoxFinishDate finishDateListener = new CheckBoxFinishDate();
-        haveFinishDate.addItemListener(finishDateListener);
-        add(haveFinishDate, c);
-
         finishDateSpinner = new JSpinner(new SpinnerDateModel());
         finishDateEditor = new JSpinner.DateEditor(finishDateSpinner,"dd-MM-yyyy");
         finishDateSpinner.setEditor(finishDateEditor);
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
@@ -122,6 +108,20 @@ public class RepairSheetPanel extends JPanel {
         c.insets = new Insets(0, 0, 0, 0);
         c.weighty = 1;
         add(finishDateSpinner, c);
+
+        if (infosRepairSheet == null || !infosRepairSheet.get(2).equals("null")) {
+            finishDate = true;
+        }
+        haveFinishDate = new Checkbox("", finishDate);
+        c.gridx = 2;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(0, 0, 0, 50);
+        c.weighty = 1;
+        CheckBoxFinishDate finishDateListener = new CheckBoxFinishDate();
+        haveFinishDate.addItemListener(finishDateListener);
+        add(haveFinishDate, c);
 
         emergencyLabel = new JLabel("Réparation urgente ? ");
         c.gridx = 0;

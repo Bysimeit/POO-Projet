@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import Exception.JTextFieldEmptyException;
+import Exception.DiscountNegatif;
 
 public class BusinessTaskPanel extends JPanel{
     private JSpinner startDateSpinner, finishDateSpinner;
@@ -182,14 +183,14 @@ public class BusinessTaskPanel extends JPanel{
 
                 discount = Double.parseDouble(discountText.getText());
                 if (discount <= 0) {
-                    //lancer erreur de pourcenetage invalide
+                    throw new DiscountNegatif(discount);
                 }
 
                 controller.activateDiscount(discount);
 
                 System.out.println(discountText.getText());
 
-            }catch (JTextFieldEmptyException exception) {
+            }catch (DiscountNegatif | NumberFormatException | JTextFieldEmptyException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
