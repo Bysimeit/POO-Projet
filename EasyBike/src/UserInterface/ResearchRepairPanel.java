@@ -4,6 +4,7 @@ import Controller.ApplicationController;
 import Model.Register;
 
 import Exception.JTextFieldEmptyException;
+import Exception.NoIDRepairFoundException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,7 @@ public class ResearchRepairPanel extends JPanel {
         add(searchRepairButton, c);
     }
 
-    public class ButtonListenerModify implements ActionListener {
+    private class ButtonListenerModify implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             try {
@@ -84,13 +85,13 @@ public class ResearchRepairPanel extends JPanel {
                 container.add(new RepairSheetPanel(false, loginID, infosRepairSheet, employeeWindow, container), BorderLayout.CENTER);
                 container.repaint();
                 employeeWindow.setVisible(true);
-            } catch (JTextFieldEmptyException | ParseException e) {
+            } catch (NoIDRepairFoundException | JTextFieldEmptyException | ParseException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    public class ButtonListenerDel implements ActionListener {
+    private class ButtonListenerDel implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             try {

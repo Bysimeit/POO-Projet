@@ -4,6 +4,7 @@ import BusinessLogic.*;
 import Model.*;
 import Exception.AddRegisterException;
 import Exception.AddRepairException;
+import Exception.NoIDRepairFoundException;
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class ApplicationController {
         this.repairSheetManager.addRepairSheet(newRepair);
     }
 
-    public ArrayList<String> searchRepairSheet(int idRepairSheet) {
+    public ArrayList<String> searchRepairSheet(int idRepairSheet) throws NoIDRepairFoundException {
         return this.repairSheetManager.searchRepairSheetInfos(idRepairSheet);
     }
 

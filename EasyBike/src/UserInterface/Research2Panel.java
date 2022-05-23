@@ -88,7 +88,7 @@ public class Research2Panel extends JPanel{
         add(researchButton, c);
     }
 
-    public class ButtonListener implements ActionListener {
+    private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String startDate = new SimpleDateFormat("yyyy-MM-dd").format(startDateSpinner.getValue());

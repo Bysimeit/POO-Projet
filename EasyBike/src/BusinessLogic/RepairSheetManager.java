@@ -1,6 +1,7 @@
 package BusinessLogic;
 
 import Exception.AddRepairException;
+import Exception.NoIDRepairFoundException;
 
 import Interfaces.RepairSheetDataAccess;
 import DataAccess.RepairSheetDBAccess;
@@ -23,7 +24,7 @@ public class RepairSheetManager {
         this.repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getBikeNumber(), newRepair.getStation());
     }
 
-    public ArrayList<String> searchRepairSheetInfos(int idRepairSheet) {
+    public ArrayList<String> searchRepairSheetInfos(int idRepairSheet) throws NoIDRepairFoundException {
         return this.repairSheetDataAccess.searchSheetInfos(idRepairSheet);
     }
 

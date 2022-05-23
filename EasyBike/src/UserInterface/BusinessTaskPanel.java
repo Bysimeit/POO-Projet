@@ -6,12 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import Exception.JTextFieldEmptyException;
-import Exception.DiscountNegatif;
+import Exception.DiscountNegatifException;
 
 public class BusinessTaskPanel extends JPanel{
     private JSpinner startDateSpinner, finishDateSpinner;
@@ -148,7 +147,7 @@ public class BusinessTaskPanel extends JPanel{
 
     }
 
-    public class ResearchButtonListener implements ActionListener{
+    private class ResearchButtonListener implements ActionListener{
         private ApplicationController controller = new ApplicationController();
 
         @Override
@@ -169,7 +168,7 @@ public class BusinessTaskPanel extends JPanel{
         }
     }
 
-    public class DiscountButtonListener implements ActionListener{
+    private class DiscountButtonListener implements ActionListener{
         private Double discount;
 
         @Override
@@ -178,19 +177,19 @@ public class BusinessTaskPanel extends JPanel{
 
             try {
                 if (Objects.equals(discountText.getText(), "")) {
-                    throw new JTextFieldEmptyException("Identifiant fiche");
+                    throw new JTextFieldEmptyException("Réduction");
                 }
 
                 discount = Double.parseDouble(discountText.getText());
                 if (discount <= 0) {
-                    throw new DiscountNegatif(discount);
+                    throw new DiscountNegatifException(discount);
                 }
 
                 controller.activateDiscount(discount);
 
                 System.out.println(discountText.getText());
 
-            }catch (DiscountNegatif | NumberFormatException | JTextFieldEmptyException exception) {
+            }catch (DiscountNegatifException | NumberFormatException | JTextFieldEmptyException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }

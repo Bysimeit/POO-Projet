@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Controller.ApplicationController;
-import Exception.JTextFieldException;
+import Exception.FormatRegisterException;
 import Exception.JTextFieldEmptyException;
 import Exception.AddRegisterException;
 import Model.Register;
@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class RegisterPanel extends JPanel {
     private JLabel title, nameLabel, firstNameLabel, nationalNumberLabel, birthdayLabel, emailLabel, passwordLabel, phoneLabel, GSMLabel, streetLabel, numberStreetLabel, postalCodeLabel, signatureLabel;
@@ -291,10 +292,42 @@ public class RegisterPanel extends JPanel {
                     throw new JTextFieldEmptyException("Code postal");
                 }
 
+                if (!Pattern.matches("[0-9]*", phoneText.getText())) {
+                    throw new FormatRegisterException("Numéro de téléphone");
+                }
+
+                if (!Pattern.matches("[0-9]*", GSMText.getText())) {
+                    throw new FormatRegisterException("Numéro de GSM");
+                }
+
+                if (!Pattern.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", emailText.getText())) {
+                    throw new FormatRegisterException("Email");
+                }
+
+                if (!Pattern.matches("^\\d{2}-\\d{2}-\\d{4}$", birthdayText.getText())) {
+                    throw new FormatRegisterException("Date de naissance (dd-MM-yyyy)");
+                }
+
+                if (!Pattern.matches("[a-zA-zéèàêÉÈ]+([ -][a-zéèàêA-Zéèàê]+)*", firstNameText.getText())) {
+                    throw new FormatRegisterException("Prénom");
+                }
+
+                if (!Pattern.matches("[a-zA-zéèàêÉÈ]+([ -][a-zéèàêA-Zéèàê]+)*", nameText.getText())) {
+                    throw new FormatRegisterException("Nom");
+                }
+
+                if (!Pattern.matches("[0-9]*", postalCodeText.getText()) && postalCodeText.getText().length() == 4) {
+                    throw new FormatRegisterException("Code postal");
+                }
+
+                if (!Pattern.matches("[0-9]*", numberStreetText.getText())) {
+                    throw new FormatRegisterException("Numéro de rue");
+                }
+
                 Register registerInfos = new Register(nameText.getText(), firstNameText.getText(), birthdayText.getText(), nationalNumberText.getText(), emailText.getText(), passwordText.getText(), phoneText.getText(), GSMText.getText(), streetText.getText(), numberStreetText.getText(), postalCodeText.getText(), signatureText.getText());
 
                 controller.addRegister(registerInfos);
-            } catch (AddRegisterException | JTextFieldEmptyException e) {
+            } catch (FormatRegisterException | AddRegisterException | JTextFieldEmptyException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }

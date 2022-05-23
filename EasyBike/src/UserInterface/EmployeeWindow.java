@@ -1,5 +1,6 @@
 package UserInterface;
 
+import DataAccess.SingletonConnection;
 import Model.Register;
 import Model.Repair;
 

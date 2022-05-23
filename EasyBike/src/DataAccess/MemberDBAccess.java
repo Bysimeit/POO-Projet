@@ -151,7 +151,6 @@ public class MemberDBAccess implements MemberDataAccess {
 
     public ArrayList<ResearchInfos1> selectResearchInfos1(int idLocality) {
         ArrayList<ResearchInfos1> result = new ArrayList<ResearchInfos1>();
-
         try {
             singletonConnection = SingletonConnection.getInstance();
 

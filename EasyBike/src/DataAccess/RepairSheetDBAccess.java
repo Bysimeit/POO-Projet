@@ -2,6 +2,7 @@ package DataAccess;
 
 import Interfaces.RepairSheetDataAccess;
 import Exception.AddRepairException;
+import Exception.NoIDRepairFoundException;
 import Model.Repair;
 
 import javax.swing.*;
@@ -69,7 +70,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
         }
     }
 
-    public ArrayList<String> searchSheetInfos(int idRepairSheet) {
+    public ArrayList<String> searchSheetInfos(int idRepairSheet) throws NoIDRepairFoundException {
         ArrayList<String> result = new ArrayList<String>();
         singletonConnection = SingletonConnection.getInstance();
 
@@ -116,8 +117,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
 
             preparedStatement.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ID introuvable !", "Erreur", JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
+            throw new NoIDRepairFoundException("ID");
         }
 
         return result;

@@ -97,6 +97,10 @@ public class RepairSheetPanel extends JPanel {
         endDateLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         add(endDateLabel, c);
 
+        if (infosRepairSheet == null || !infosRepairSheet.get(2).equals("null")) {
+            finishDate = true;
+        }
+
         finishDateSpinner = new JSpinner(new SpinnerDateModel());
         finishDateEditor = new JSpinner.DateEditor(finishDateSpinner,"dd-MM-yyyy");
         finishDateSpinner.setEditor(finishDateEditor);
@@ -109,9 +113,6 @@ public class RepairSheetPanel extends JPanel {
         c.weighty = 1;
         add(finishDateSpinner, c);
 
-        if (infosRepairSheet == null || !infosRepairSheet.get(2).equals("null")) {
-            finishDate = true;
-        }
         haveFinishDate = new Checkbox("", finishDate);
         c.gridx = 2;
         c.gridy = 2;
@@ -263,20 +264,20 @@ public class RepairSheetPanel extends JPanel {
         add(modifyButton, c);
     }
 
-    public class CheckBoxListener implements ItemListener {
+    private class CheckBoxListener implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
             isUrgent = event.getStateChange() == ItemEvent.SELECTED;
         }
     }
 
-    public class CheckBoxFinishDate implements ItemListener {
+    private class CheckBoxFinishDate implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
             finishDate = event.getStateChange() == ItemEvent.SELECTED;
             finishDateSpinner.setEnabled(finishDate);
         }
     }
 
-    public class ComboBoxListener implements ItemListener {
+    private class ComboBoxListener implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
             switch (stationList.getSelectedIndex()) {
                 case 1:
@@ -306,13 +307,13 @@ public class RepairSheetPanel extends JPanel {
         }
     }
 
-    public class ListenerBikeNumberSelected implements ItemListener {
+    private class ListenerBikeNumberSelected implements ItemListener {
         public void itemStateChanged(ItemEvent event) {
             bikeNumberSelected = numberBikeList.getSelectedIndex();
         }
     }
 
-    public class ButtonListenerBack implements ActionListener{
+    private class ButtonListenerBack implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             container.removeAll();
@@ -323,7 +324,7 @@ public class RepairSheetPanel extends JPanel {
         }
     }
 
-    public class ButtonListenerAdd implements ActionListener {
+    private class ButtonListenerAdd implements ActionListener {
         private ApplicationController controller = new ApplicationController();
 
         @Override
@@ -359,7 +360,7 @@ public class RepairSheetPanel extends JPanel {
         }
     }
 
-    public class ButtonListenerModify implements ActionListener {
+    private class ButtonListenerModify implements ActionListener {
         private ApplicationController controller = new ApplicationController();
         @Override
         public void actionPerformed(ActionEvent event) {

@@ -68,7 +68,7 @@ public class Research1Panel extends JPanel{
         public void itemStateChanged(ItemEvent event) {
             ApplicationController controller = new ApplicationController();
             ArrayList<ResearchInfos1> result = controller.selectResearchInfos1(localityCombo.getSelectedIndex() + 1);
-            if (!Objects.equals(result.get(0).getName(), null)) {
+            if (!result.isEmpty()) {
                 mainContainer.removeAll();
                 mainContainer.setLayout(new BorderLayout());
                 mainContainer.add(new ListResearch1(result));

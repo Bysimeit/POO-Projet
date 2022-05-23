@@ -1,9 +1,9 @@
 package Exception;
 
-public class DiscountNegatif extends Exception{
+public class DiscountNegatifException extends Exception {
     private Double badValue;
 
-    public DiscountNegatif(Double badValue){
+    public DiscountNegatifException(Double badValue) {
         this.badValue = badValue;
     }
 
