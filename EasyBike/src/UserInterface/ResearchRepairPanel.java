@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -83,7 +84,7 @@ public class ResearchRepairPanel extends JPanel {
                 container.add(new RepairSheetPanel(false, loginID, infosRepairSheet, employeeWindow, container), BorderLayout.CENTER);
                 container.repaint();
                 employeeWindow.setVisible(true);
-            } catch (JTextFieldEmptyException e) {
+            } catch (JTextFieldEmptyException | ParseException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         }

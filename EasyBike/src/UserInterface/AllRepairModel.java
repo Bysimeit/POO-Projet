@@ -45,10 +45,10 @@ public class AllRepairModel extends AbstractTableModel {
         Repair repair = contents.get(rowIndex);
         switch (columnIndex) {
             case 0 : return repair.getId();
-            case 1 : return repair.getDate();
+            case 1 : return repair.getDateSQL();
             case 2 : {
-                if (repair.getFinishDate() != null)
-                    return repair.getFinishDate();
+                if (repair.getFinishDateSQL() != null)
+                    return repair.getFinishDateSQL();
                 else return null;
             }
             case 3 : return repair.getIsUrgent();

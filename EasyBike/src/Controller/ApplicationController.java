@@ -3,6 +3,7 @@ package Controller;
 import BusinessLogic.*;
 import Model.*;
 import Exception.AddRegisterException;
+import Exception.AddRepairException;
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ApplicationController {
         return infosManager.searchResponsibleInfo(responsible);
     }
 
-    public void addRepairSheet(Repair newRepair) {
+    public void addRepairSheet(Repair newRepair) throws AddRepairException {
         this.repairSheetManager.addRepairSheet(newRepair);
     }
 

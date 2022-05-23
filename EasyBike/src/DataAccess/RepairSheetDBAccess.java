@@ -1,6 +1,7 @@
 package DataAccess;
 
 import Interfaces.RepairSheetDataAccess;
+import Exception.AddRepairException;
 import Model.Repair;
 
 import javax.swing.*;
@@ -13,51 +14,58 @@ import java.util.Objects;
 public class RepairSheetDBAccess implements RepairSheetDataAccess {
     private Connection singletonConnection;
 
-    public void addRepairSheet(int id, int idEmployee, java.sql.Date startDate, java.sql.Date endDate, boolean isUrgent, String remark, int bikeNumber, String transmittingStation) {
+    public void addRepairSheet(int id, int idEmployee, String startDate, String endDate, boolean isUrgent, String remark, int bikeNumber, String transmittingStation) throws AddRepairException {
         singletonConnection = SingletonConnection.getInstance();
 
+        String checkBike = "SELECT COUNT(id) FROM repairorder WHERE id = " + bikeNumber;
         String insertRepair = "INSERT INTO repair (id, employee, date, repairfinishdate, isurgent, remark, transmittingstation) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String insertRepairOrder = "INSERT INTO repairorder (number, id) VALUES (?, ?)";
 
         try {
-            PreparedStatement preparedStatement = singletonConnection.prepareStatement(insertRepair);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, idEmployee);
-
-            preparedStatement.setDate(3, startDate);
-
-            if (!(endDate == null)) {
-                preparedStatement.setDate(4, endDate);
+            PreparedStatement preparedStatement = singletonConnection.prepareStatement(checkBike);
+            ResultSet data = preparedStatement.executeQuery();
+            data.next();
+            if (data.getInt(1) == 1) {
+                JOptionPane.showMessageDialog(null, "Ne peux pas avoir de deux fiche pour un vélo !", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
-                preparedStatement.setNull(4, Types.INTEGER);
+                preparedStatement = singletonConnection.prepareStatement(insertRepair);
+                preparedStatement.setInt(1, id);
+                preparedStatement.setInt(2, idEmployee);
+
+                preparedStatement.setString(3, startDate);
+
+                if (!(endDate == null)) {
+                    preparedStatement.setString(4, endDate);
+                } else {
+                    preparedStatement.setNull(4, Types.INTEGER);
+                }
+
+                if (isUrgent) {
+                    preparedStatement.setInt(5, 1);
+                } else {
+                    preparedStatement.setInt(5, 0);
+                }
+
+                if (!Objects.equals(remark, "")) {
+                    preparedStatement.setString(6, remark);
+                } else {
+                    preparedStatement.setNull(6, Types.INTEGER);
+                }
+
+                preparedStatement.setString(7, transmittingStation);
+
+                preparedStatement.executeUpdate();
+
+                preparedStatement = singletonConnection.prepareStatement(insertRepairOrder);
+                preparedStatement.setInt(1, id);
+                preparedStatement.setInt(2, bikeNumber);
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
+                JOptionPane.showMessageDialog(null, "Nouvelle fiche ajoutée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
             }
-
-            if (isUrgent) {
-                preparedStatement.setInt(5, 1);
-            } else {
-                preparedStatement.setInt(5, 0);
-            }
-
-            if (!Objects.equals(remark, "")) {
-                preparedStatement.setString(6, remark);
-            } else {
-                preparedStatement.setNull(6, Types.INTEGER);
-            }
-
-            preparedStatement.setString(7, transmittingStation);
-
-            preparedStatement.executeUpdate();
-
-            preparedStatement = singletonConnection.prepareStatement(insertRepairOrder);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, bikeNumber);
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-            JOptionPane.showMessageDialog(null, "New repair order added !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
+            throw new AddRepairException(id);
         }
     }
 
@@ -115,7 +123,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
         return result;
     }
 
-    public void modifyRepairSheet(int id, int idEmployee, java.sql.Date startDate, java.sql.Date endDate, boolean isUrgent, String remark, int bikeNumber, String transmittingStation) {
+    public void modifyRepairSheet(int id, int idEmployee, String startDate, String endDate, boolean isUrgent, String remark, int bikeNumber, String transmittingStation) {
         singletonConnection = SingletonConnection.getInstance();
 
         String modifyRepair = "UPDATE repair SET employee = ?, date = ?, repairfinishdate = ?, isurgent = ?, remark = ?, transmittingstation = ? WHERE id = " + id;
@@ -128,10 +136,10 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
 
             preparedStatement = singletonConnection.prepareStatement(modifyRepair);
             preparedStatement.setInt(1, idEmployee);
-            preparedStatement.setDate(2, startDate);
+            preparedStatement.setString(2, startDate);
 
             if (!(endDate == null)) {
-                preparedStatement.setDate(3, endDate);
+                preparedStatement.setString(3, endDate);
             } else {
                 preparedStatement.setNull(3, Types.INTEGER);
             }
@@ -153,10 +161,9 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
-            JOptionPane.showMessageDialog(null, "Repair order modified !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fiche modifiée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-            throw new RuntimeException(e);
         }
     }
 
@@ -174,7 +181,7 @@ public class RepairSheetDBAccess implements RepairSheetDataAccess {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
-            JOptionPane.showMessageDialog(null, "Repair order deleted !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Fiche supprimée !", "Erreur", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);

@@ -1,5 +1,7 @@
 package BusinessLogic;
 
+import Exception.AddRepairException;
+
 import Interfaces.RepairSheetDataAccess;
 import DataAccess.RepairSheetDBAccess;
 import Model.Repair;
@@ -17,7 +19,7 @@ public class RepairSheetManager {
         this.repairSheetDataAccess = newRepairSheetDBAccess;
     }
 
-    public void addRepairSheet(Repair newRepair) {
+    public void addRepairSheet(Repair newRepair) throws AddRepairException {
         this.repairSheetDataAccess.addRepairSheet(newRepair.getId(), newRepair.getEmployeeId(), newRepair.getDate(), newRepair.getFinishDate(), newRepair.getIsUrgent(), newRepair.getRemark(), newRepair.getBikeNumber(), newRepair.getStation());
     }
 

@@ -5,14 +5,16 @@ import java.sql.Date;
 public class Repair {
     private Integer id;
     private Integer employeeId;
-    private Date date;
-    private Date finishDate;
+    private String date;
+    private Date dateSQL;
+    private String finishDate;
+    private Date finishDateSQL;
     private Boolean isUrgent;
     private String remark;
     private Integer bikeNumber;
     private String station;
 
-    public Repair(Integer id, Integer employeeId, Date date, Date finishDate, Boolean isUrgent, String remark, Integer bikeNumber, String station) {
+    public Repair(Integer id, Integer employeeId, String date, String finishDate, Boolean isUrgent, String remark, Integer bikeNumber, String station) {
         setId(id);
         setEmployeeId(employeeId);
         setDate(date);
@@ -26,11 +28,27 @@ public class Repair {
     public Repair(Integer id, Integer employeeId, Date date, Date finishDate, Boolean isUrgent, String remark, String station) {
         setId(id);
         setEmployeeId(employeeId);
-        setDate(date);
-        setFinishDate(finishDate);
+        setDateSQL(date);
+        setFinishDateSQL(finishDate);
         setUrgent(isUrgent);
         setRemark(remark);
         setStation(station);
+    }
+
+    public void setDateSQL(Date date) {
+        this.dateSQL = date;
+    }
+
+    public void setFinishDateSQL(Date finishDateSQL) {
+        this.finishDateSQL = finishDateSQL;
+    }
+
+    public Date getDateSQL() {
+        return dateSQL;
+    }
+
+    public Date getFinishDateSQL() {
+        return finishDateSQL;
     }
 
     public void setId(Integer id) {
@@ -41,11 +59,11 @@ public class Repair {
         this.employeeId = employeeId;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(String finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -73,11 +91,11 @@ public class Repair {
         return employeeId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Date getFinishDate() {
+    public String getFinishDate() {
         return finishDate;
     }
 
